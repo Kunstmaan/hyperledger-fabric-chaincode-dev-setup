@@ -90,7 +90,7 @@ const openTerminal = () => {
 const initChainCode = (isUpdate = false) => {
     return new Promise((resolve, reject) => {
         startShell('./scripts/deployChainCode.sh', 5000)
-            .then(() => startShell('./scripts/initChainCode.sh', 5000))
+            .then(() => startShell('./scripts/initChainCode.sh'))
             .then(openTerminal)
             .then(resolve)
             .catch((err) => {

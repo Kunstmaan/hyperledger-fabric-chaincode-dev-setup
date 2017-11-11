@@ -29,7 +29,7 @@ By default the script will watch your chaincode directory for any changes. When 
 
 ## What is the script doing
 
-It automates the steps inside the [tutorial]((http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
+It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
 
 Steps which are done behind the scenes:
 

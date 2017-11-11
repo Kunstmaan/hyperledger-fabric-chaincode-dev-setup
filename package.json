@@ -1,0 +1,16 @@
+{
+  "name": "dev-scripts-chain-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "setupDevEnv.js",
+  "scripts": {
+    "start": "node setupDevEnv.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^1.7.0",
+    "through": "^2.3.8"
+  }
+}

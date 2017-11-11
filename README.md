@@ -23,23 +23,23 @@ You can replace the `chaincodeLocation` argument value with the path of the chai
 
 ## Watch mode
 
-By default the script will watch your chaincode directory for any changes. When a change happens the chaincode will be updated on the docker container.
+By default the script will watch your chaincode directory for any changes. When a change happens the chaincode will deploy a newer version of the chaincode.
 
-**Changes to package.json will not work, if you add a dependency you will need to restart the entire script.**
+**Changes to package.json will not be picked up, if you add a dependency you will need to restart the entire script.**
 
 ## What is the script doing
 
-It automates the step inside the tutorial. Inside the tutorial you'll need to open many terminals to setup your dev environment. With this repo you'll only need to run a single script.
+It automates the steps inside the [tutorial]((http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
 
 Steps which are done behind the scenes:
 
 1. Setup a simple blockchain network
-2. Build/deploy and instantiate the chaincode
-3. Start a terminal
+2. Install npm packages needed for the chaincode script
+3. Build/deploy and instantiate the chaincode
+4. Start a terminal
+5. Start watching the chaincode for changes, when a change happens step 3 and 4 are performed again
 
-Also on every change inside a chaincode js file it will perform step 2 and 3 again. This makes it easier as you can just keep editing your code and don't need to manually run these steps again on every change.
-
-As it's not possible to deploy the same chaincode twice a number is included inside the name. This number is bumped on every change.
+As it's not possible to deploy the same chaincode twice a number is included inside the chaincode name. This number is bumped on every change. This makes it possible in watch mode to only rerun a couple of the build steps which at the end makes everything faster.
 
 ## Backlog
 

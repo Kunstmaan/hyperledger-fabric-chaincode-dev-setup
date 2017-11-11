@@ -17,7 +17,15 @@ Make sure you have done the following things:
 
 ## Starting the script
 
-Spin up your dev environment by running `npm start`.
+Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar`.
+
+You can replace the `chaincodeLocation` argument value with the path of the chaincode you wish to run.
+
+## Watch mode
+
+By default the script will watch your chaincode directory for any changes. When a change happens the chaincode will be updated on the docker container.
+
+**Changes to package.json will not work, if you add a dependency you will need to restart the entire script.**
 
 ## What is the script doing
 
@@ -32,3 +40,8 @@ Steps which are done behind the scenes:
 Also on every change inside a chaincode js file it will perform step 2 and 3 again. This makes it easier as you can just keep editing your code and don't need to manually run these steps again on every change.
 
 As it's not possible to deploy the same chaincode twice a number is included inside the name. This number is bumped on every change.
+
+## Backlog
+
+1. Go language support
+2. Support many chaincode directories / chaincode invoking other chain code

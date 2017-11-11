@@ -2,8 +2,6 @@ var exec = require('child_process').exec;
 var through = require('through');
 var os = require('os');
 
-var args = process.argv;
-
 function openTab(cmd, cb) {
     if (os.platform() !== 'darwin') {
         throw new Error('No support for this operating system but feel free to fork the repo and add it :)');
@@ -41,11 +39,6 @@ process.stdin.pipe(through(function (buf) {
     process.exit(0);
 }, function () {
 }));
-
-if (args.length > 2) {
-    openTab(args.slice(2).join(' '));
-    process.exit(0);
-}
 
 module.exports = {
     open: openTab

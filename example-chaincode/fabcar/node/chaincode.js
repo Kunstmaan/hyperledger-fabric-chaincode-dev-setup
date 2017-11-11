@@ -58,16 +58,14 @@ let Chaincode = class {
   async initLedger(stub, args) {
     console.info('============= START : Initialize Ledger ===========');
     let cars = [];
-    /*
     cars.push({
       make: 'Toyota',
       model: 'Prius',
       color: 'blue',
       owner: 'Tomoko'
     });
-    */
     cars.push({
-      make: 'Ford3',
+      make: 'Ford',
       model: 'Mustang',
       color: 'red',
       owner: 'Brad'

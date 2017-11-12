@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 const argv = require('yargs').argv;
 const terminalTab = require('./scripts/utils/terminal-tab');
 
-const DEFAULT_CHAINCODE_PATH = './example-chaincode/fabcar';
+const DEFAULT_CHAINCODE_PATH = './example-chaincode/fabcar/node';
 const LOCAL_CHAINCODE_PATH = './chaincode';
 
 let buildIteration = 0;
@@ -43,7 +43,8 @@ const startShell = (script, timeout = undefined, outputToConsole = true) => {
             cwd: __dirname,
             env: {
                 'VERSION': buildIteration,
-                'CHAINCODE_DIR': chaincodeDirectory
+                'CHAINCODE_DIR': chaincodeDirectory,
+                'CHAINCODE_JS': 'chaincode.js'
             }
         });
 
@@ -103,7 +104,10 @@ const initChainCode = (isUpdate = false) => {
 };
 
 // Update chaincode whenever source files change
-chokidar.watch(path.join(chaincodeLocation, '**/node/*.js'), {ignoreInitial: true})
+chokidar.watch([
+    path.join(chaincodeLocation, '**/*.js'),
+    `!${path.join(chaincodeLocation, 'node_modules/**')}`
+], {ignoreInitial: true})
     .on('all', (event, path) => {
         console.log('Updating chaincode for ', path);
         buildIteration += 1;
@@ -115,7 +119,7 @@ chokidar.watch(path.join(chaincodeLocation, '**/node/*.js'), {ignoreInitial: tru
     });
 
 // Start docker
-startShell('./scripts/setupDocker.sh', 10000)
+startShell('./scripts/setupDocker.sh', 30000)
     .then(copyChainCode)
     .then(() => startShell('./scripts/installNpmPackages.sh'))
     .then(initChainCode)

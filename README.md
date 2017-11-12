@@ -1,4 +1,4 @@
-# Hyperledger Fabric dev tools for chaincode
+# Hyperledger Fabric dev setup for chaincode development
 
 This repo contains out of a setup which makes it easy to develop node.js chaincode.
 
@@ -12,14 +12,24 @@ Make sure you have done the following things:
 
 1. Use at least version 1.1.0-preview for the docker images. If not run './setupDockerImages.sh' which you can find in the root of this project.
 2. Add the path of the repo to the docker file sharing preferences
-3. Always put your chaincode inside a directory named 'node' and name your chaincode file 'chaincode.js'. The build/watch logic depends on this.
+3. Always name your chaincode file 'chaincode.js' and put it in the root directory of the chain code location. The build logic depends on this.
 4. Run `npm install`
 
 ## Starting the script
 
-Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar`.
+Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar/node`.
 
 You can replace the `chaincodeLocation` argument value with the path of the chaincode you wish to run.
+
+## Node.js api
+
+You can also install this as an npm module in your project and run it within a node.js script.
+
+```javascript
+const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
+
+setupDevEnv({chaincodeLocation: '/absolute/path/to/chaincode'});
+```
 
 ## Watch mode
 

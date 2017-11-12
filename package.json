@@ -1,14 +1,14 @@
 {
-  "name": "dev-scripts-chain-code",
+  "name": "hyperledger-fabric-chaincode-dev-setup",
   "version": "1.0.0",
   "description": "",
-  "main": "setupDevEnv.js",
+  "main": "lib.js",
   "scripts": {
     "clean": "rm -rf ./chaincode",
     "start": "node setupDevEnv.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "janb87",
   "license": "ISC",
   "dependencies": {
     "chokidar": "^1.7.0",

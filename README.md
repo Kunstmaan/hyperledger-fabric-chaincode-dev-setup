@@ -21,6 +21,16 @@ Spin up your dev environment by running `npm start -- --chaincodeLocation=./exam
 
 You can replace the `chaincodeLocation` argument value with the path of the chaincode you wish to run.
 
+## Node.js api
+
+You can also install this as an npm module in your project and run it within a node.js script.
+
+```javascript
+const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
+
+setupDevEnv({chaincodeLocation: '/absolute/path/to/chaincode'});
+```
+
 ## Watch mode
 
 By default the script will watch your chaincode directory for any changes. When a change happens the chaincode will deploy a newer version of the chaincode.

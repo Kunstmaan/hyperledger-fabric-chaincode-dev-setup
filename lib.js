@@ -117,7 +117,7 @@ module.exports = function setupDevEnv({chaincodeLocation = DEFAULT_CHAINCODE_PAT
         });
 
     // Start docker
-    startShell('./scripts/setupDocker.sh', 30000)
+    startShell('./scripts/setupDocker.sh', 10000)
         .then(copyChainCode)
         .then(() => startShell('./scripts/installNpmPackages.sh'))
         .then(initChainCode)

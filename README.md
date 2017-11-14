@@ -53,5 +53,11 @@ As it's not possible to deploy the same chaincode twice a number is included ins
 
 ## Backlog
 
-1. Go language support
-2. Support many chaincode directories / chaincode invoking other chain code
+1. Run "update" instead of "instantiate" when a file changes => No need to open new terminal, use a version number anymore
+2. Support many chaincode directories
+3. Support a common directory for shared code between different chaincode
+4. Watch support for package.json 
+5. Only copy changed files inside watch
+6. Split lib.js into smaller modules
+7. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
+8. Go language support

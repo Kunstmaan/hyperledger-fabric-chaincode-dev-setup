@@ -8,8 +8,8 @@ let chaincodeLocations = undefined;
 
 if (Array.isArray(chaincodeLocationArg)) {
     chaincodeLocations = chaincodeLocationArg.map((location => path.resolve(location)));
-} else if(typeof chaincodeLocationArg === 'string') {
-    chaincodeLocations = [chaincodeLocationArg];
+} else if (typeof chaincodeLocationArg === 'string') {
+    chaincodeLocations = [path.resolve(chaincodeLocationArg)];
 }
 
 setupDevEnv({chaincodeLocations});

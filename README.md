@@ -30,7 +30,7 @@ You can also install this as an npm module in your project and run it within a n
 const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
 
 setupDevEnv({
-    chaincodeLocation: [
+    chaincodeLocations: [
         '/absolute/path/to/chaincode1',
         '/absolute/path/to/chaincode2'
     ]
@@ -57,9 +57,8 @@ Steps which are done behind the scenes:
 
 ## Backlog
 
-1. Support a common directory for shared code between different chaincode
-2. Watch support for package.json 
-3. Only copy changed files inside watch
-4. Don't use a timeout, instead look for a message inside the output of the script which indicates it has started
-5. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
-6. Go language support
+1. Watch support for package.json 
+2. Only copy changed files inside watch
+3. Don't use a timeout, instead look for a message inside the output of the script which indicates it has started
+4. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
+5. Go language support

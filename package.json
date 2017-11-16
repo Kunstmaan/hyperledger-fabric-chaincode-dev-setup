@@ -2,7 +2,7 @@
   "name": "hyperledger-fabric-chaincode-dev-setup",
   "version": "1.0.0",
   "description": "",
-  "main": "lib.js",
+  "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf ./chaincode",
     "start": "node setupDevEnv.js",

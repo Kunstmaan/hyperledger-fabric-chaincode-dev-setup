@@ -17,9 +17,10 @@ Make sure you have done the following things:
 
 ## Starting the script
 
-Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar/node`.
+Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar1 --chaincodeLocation=./example-chaincode/fabcar2`.
 
 You can replace the `chaincodeLocation` argument value with the path of the chaincode you wish to run.
+When running from many locations you can specifiy this argument multiple times using different values.
 
 ## Node.js api
 
@@ -28,7 +29,12 @@ You can also install this as an npm module in your project and run it within a n
 ```javascript
 const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
 
-setupDevEnv({chaincodeLocation: '/absolute/path/to/chaincode'});
+setupDevEnv({
+    chaincodeLocation: [
+        '/absolute/path/to/chaincode1',
+        '/absolute/path/to/chaincode2'
+    ]
+});
 ```
 
 ## Watch mode
@@ -39,26 +45,21 @@ By default the script will watch your chaincode directory for any changes. When 
 
 ## What is the script doing
 
-It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
+It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). 
+No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
 
 Steps which are done behind the scenes:
 
 1. Setup a simple blockchain network
 2. Install npm packages needed for the chaincode script
 3. Build/deploy and instantiate the chaincode
-4. Start a terminal
-5. Start watching the chaincode for changes, when a change happens step 3 and 4 are performed again
-
-As it's not possible to deploy the same chaincode twice a number is included inside the chaincode name. This number is bumped on every change. This makes it possible in watch mode to only rerun a couple of the build steps which at the end makes everything faster.
+4. Start watching the chaincode for changes, when a change happens an upgrade of the chaincode is done
 
 ## Backlog
 
-1. Run "update" instead of "instantiate" when a file changes => No need to open new terminal, use a version number anymore
-2. Support many chaincode directories
-3. Support a common directory for shared code between different chaincode
-4. Watch support for package.json 
-5. Only copy changed files inside watch
-6. Split lib.js into smaller modules
-7. Don't use a timeout, instead look for a message inside the output of the script which indicates it has started
-8. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
-9. Go language support
+1. Support a common directory for shared code between different chaincode
+2. Watch support for package.json 
+3. Only copy changed files inside watch
+4. Don't use a timeout, instead look for a message inside the output of the script which indicates it has started
+5. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
+6. Go language support

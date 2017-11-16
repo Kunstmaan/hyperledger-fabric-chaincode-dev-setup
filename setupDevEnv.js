@@ -1,4 +1,15 @@
+const path = require('path');
 const argv = require('yargs').argv;
 const setupDevEnv = require('./lib');
 
-setupDevEnv({chaincodeLocation: argv.chaincodeLocation});
+const chaincodeLocationArg = argv.chaincodeLocation;
+
+let chaincodeLocations = undefined;
+
+if (Array.isArray(chaincodeLocationArg)) {
+    chaincodeLocations = chaincodeLocationArg.map((location => path.resolve(location)));
+} else if(typeof chaincodeLocationArg === 'string') {
+    chaincodeLocations = [chaincodeLocationArg];
+}
+
+setupDevEnv({chaincodeLocations});

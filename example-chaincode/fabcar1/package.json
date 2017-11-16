@@ -1,5 +1,5 @@
 {
-    "name": "mychaincode",
+    "name": "fabcar1",
     "version": "1.0.0",
     "description": "My first exciting chaincode implemented in node.js",
     "engines": {

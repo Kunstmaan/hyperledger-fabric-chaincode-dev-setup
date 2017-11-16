@@ -17,7 +17,7 @@ Make sure you have done the following things:
 
 ## Starting the script
 
-Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar1/node --chaincodeLocation=./example-chaincode/fabcar2/node`.
+Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar1 --chaincodeLocation=./example-chaincode/fabcar2`.
 
 You can replace the `chaincodeLocation` argument value with the path of the chaincode you wish to run.
 When running from many locations you can specifiy this argument multiple times using different values.
@@ -45,15 +45,15 @@ By default the script will watch your chaincode directory for any changes. When 
 
 ## What is the script doing
 
-It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
+It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). 
+No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
 
 Steps which are done behind the scenes:
 
 1. Setup a simple blockchain network
 2. Install npm packages needed for the chaincode script
 3. Build/deploy and instantiate the chaincode
-4. Start a terminal
-5. Start watching the chaincode for changes, when a change happens step 3 and 4 are performed again
+4. Start watching the chaincode for changes, when a change happens an upgrade of the chaincode is done
 
 ## Backlog
 

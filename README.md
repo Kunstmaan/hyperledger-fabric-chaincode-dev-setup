@@ -59,5 +59,6 @@ As it's not possible to deploy the same chaincode twice a number is included ins
 4. Watch support for package.json 
 5. Only copy changed files inside watch
 6. Split lib.js into smaller modules
-7. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
-8. Go language support
+7. Don't use a timeout, instead look for a message inside the output of the script which indicates it has started
+8. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
+9. Go language support

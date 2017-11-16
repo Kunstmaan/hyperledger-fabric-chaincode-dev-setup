@@ -61,7 +61,7 @@ let Chaincode = class {
     cars.push({
       make: 'Ferrari',
       model: 'Scuderia',
-      color: 'read',
+      color: 'red',
       owner: 'Eddy'
     });
 

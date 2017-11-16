@@ -60,7 +60,7 @@ let Chaincode = class {
     let cars = [];
     
     cars.push({
-      make: 'Holden2',
+      make: 'Holden',
       model: 'Barina',
       color: 'brown',
       owner: 'Shotaro'

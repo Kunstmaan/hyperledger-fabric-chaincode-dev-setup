@@ -1,4 +1,4 @@
 #!/bin/bash
-docker rm -f $(docker ps -aq)
-docker network prune -f
+docker rm -f cli chaincode peer orderer
+docker network rm chaincodedockerdevmode_default
 docker-compose -f ./chaincode-docker-devmode/docker-compose-simple.yaml up

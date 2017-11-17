@@ -12,8 +12,7 @@ Make sure you have done the following things:
 
 1. Use at least version 1.1.0-preview for the docker images. If not run './setupDockerImages.sh' which you can find in the root of this project.
 2. Add the path of the repo to the docker file sharing preferences
-3. Always name your chaincode file 'chaincode.js' and put it in the root directory of the chain code location. The build logic depends on this.
-4. Run `npm install`
+3. Run `npm install`
 
 ## Starting the script
 

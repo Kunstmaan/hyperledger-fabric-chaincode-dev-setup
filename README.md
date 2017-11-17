@@ -59,6 +59,5 @@ Steps which are done behind the scenes:
 
 1. Watch support for package.json 
 2. Only copy changed files inside watch
-3. Don't use a timeout, instead look for a message inside the output of the script which indicates it has started
-4. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
-5. Go language support
+3. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
+4. Go language support

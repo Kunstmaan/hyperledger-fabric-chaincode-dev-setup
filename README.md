@@ -36,6 +36,26 @@ setupDevEnv({
 });
 ```
 
+There is also an option to control which output gets written to the console.
+By default all debug related messages will not be outputted to the console.
+
+```javascript
+const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
+
+setupDevEnv({
+    chaincodeLocations: [
+        '/absolute/path/to/chaincode1',
+        '/absolute/path/to/chaincode2'
+    ],
+    logOutputToConsole: (script, message) => {
+        // 'script' return the full path to the script being executed
+        // 'message' is the message which  would be written to the console
+        // return false in case it should not be written to the console
+        return true;
+    }
+});
+```
+
 ## Watch mode
 
 By default the script will watch your chaincode directory for any changes. When a change happens the chaincode will deploy a newer version of the chaincode.

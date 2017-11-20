@@ -21,3 +21,4 @@ docker tag hyperledger/fabric-tools:x86_64-1.1.0-preview hyperledger/fabric-tool
 docker pull hyperledger/fabric-ccenv:x86_64-1.1.0-preview
 docker tag hyperledger/fabric-ccenv:x86_64-1.1.0-preview hyperledger/fabric-ccenv:latest
 
+docker pull yeasy/hyperledger-fabric-couchdb

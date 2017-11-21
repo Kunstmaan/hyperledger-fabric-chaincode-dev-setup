@@ -60,7 +60,7 @@ services:
       - CORE_PEER_LOCALMSPID=DEFAULT
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp
     working_dir: /opt/gopath/src/chaincodedev
-    command: /bin/bash -c './script.sh'
+    command: /bin/bash -c 'sleep 5; ./script.sh;'
     volumes:
         - /var/run/:/host/var/run/
         - ./msp:/etc/hyperledger/msp

@@ -81,3 +81,4 @@ Steps which are done behind the scenes:
 3. Only copy changed files inside watch
 4. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
 5. Go language support
+6. Live adding of new chaincodes

@@ -76,7 +76,8 @@ Steps which are done behind the scenes:
 
 ## Backlog
 
-1. Watch support for package.json 
-2. Only copy changed files inside watch
-3. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
-4. Go language support
+1. Don't deploy two chaincodes at the same time ... wait for the first one to be deployed. Maybe add a rate limiter as well?
+2. Watch support for package.json 
+3. Only copy changed files inside watch
+4. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
+5. Go language support

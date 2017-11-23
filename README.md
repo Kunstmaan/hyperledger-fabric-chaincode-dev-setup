@@ -81,3 +81,5 @@ Steps which are done behind the scenes:
 3. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
 4. Go language support
 5. Live adding of new chaincodes
+6. Add documentation for node.js api options `dockerFile` and `chaincodeDestination` (put options inside a table + use 1 code example)
+7. Document structure of a chaincode package.json file (name and hf-dev-channel)

@@ -83,5 +83,4 @@ Steps which are done behind the scenes:
 5. Live adding of new chaincodes
 6. Add documentation for node.js api options `dockerFile` and `chaincodeDestination` (put options inside a table + use 1 code example)
 7. Document structure of a chaincode package.json file (name and hf-dev-channel)
-8. Before installing npm packages, check if the folders exists
-9. Improve performance by not recreating the docker images (detect the latest version of chaincode using peer chaincode list --installed), use a separate function to start from a clean setup
+8. Improve performance by not recreating the docker images (detect the latest version of chaincode using peer chaincode list --installed), use a separate function to start from a clean setup

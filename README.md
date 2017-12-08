@@ -32,29 +32,27 @@ setupDevEnv({
     chaincodeLocations: [
         '/absolute/path/to/chaincode1',
         '/absolute/path/to/chaincode2'
-    ]
-});
-```
-
-There is also an option to control which output gets written to the console.
-By default all debug related messages will not be outputted to the console.
-
-```javascript
-const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
-
-setupDevEnv({
-    chaincodeLocations: [
-        '/absolute/path/to/chaincode1',
-        '/absolute/path/to/chaincode2'
     ],
     logOutputToConsole: (script, message) => {
         // 'script' return the full path to the script being executed
         // 'message' is the message which  would be written to the console
         // return false in case it should not be written to the console
         return true;
-    }
+    },
+    dockerFile: './chaincode-docker-devmode/docker-compose-simple.yaml',
+    chaincodeDestination: './chaincode',
+    copyGlobPattern: '**/*'
 });
 ```
+
+| Option               | Info                                                                                                           | Type                                           | Required                               |
+|----------------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------|----------------------------------------|
+| chaincodeLocations   | Paths to the chain code directories.                                                                           | `Array<string>`                                | Yes                                    |
+| logOutputToConsole   | Called when a shell script writes something to the console                                                     | `(script: string, message: string) => boolean` | No, filters debug messages by default  |
+| dockerFile           | Location of the docker compose file for the network                                                            | `string`                                       | No, defaults to `chaincode-docker-devmode/docker-compose-simple.yaml` |
+| chaincodeDestination | Destination path for the chaincode. Make sure your docker containers use the same path when using this option. | `string`                                       | No, defaults to `chaincode`            |
+| copyGlobPattern      | Overwrite the glob pattern used to copy files from the chaincode location to the destination.                  | `string`                                       | No, defaults to `**/*`                 |
+
 
 ## Watch mode
 
@@ -81,6 +79,5 @@ Steps which are done behind the scenes:
 3. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
 4. Go language support
 5. Live adding of new chaincodes
-6. Add documentation for node.js api options `dockerFile` and `chaincodeDestination` (put options inside a table + use 1 code example)
-7. Document structure of a chaincode package.json file (name and hf-dev-channel)
-8. Before installing npm packages, check if the folders exists
+6. Document structure of a chaincode package.json file (name and hf-dev-channel)
+7. Improve performance by not recreating the docker images (detect the latest version of chaincode using peer chaincode list --installed), use a separate function to start from a clean setup

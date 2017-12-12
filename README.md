@@ -39,6 +39,7 @@ setupDevEnv({
         // return false in case it should not be written to the console
         return true;
     },
+    watchMode: false,
     dockerFile: './chaincode-docker-devmode/docker-compose-simple.yaml',
     chaincodeDestination: './chaincode',
     copyGlobPattern: '**/*'
@@ -49,14 +50,15 @@ setupDevEnv({
 |----------------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------|----------------------------------------|
 | chaincodeLocations   | Paths to the chain code directories.                                                                           | `Array<string>`                                | Yes                                    |
 | logOutputToConsole   | Called when a shell script writes something to the console                                                     | `(script: string, message: string) => boolean` | No, filters debug messages by default  |
+| watchMode            | Watch files for changes, auto update chaincode when a file changes.                                            | `boolean`                                      | No, by default the user can update chaincode using the prompt window |
 | dockerFile           | Location of the docker compose file for the network                                                            | `string`                                       | No, defaults to `chaincode-docker-devmode/docker-compose-simple.yaml` |
 | chaincodeDestination | Destination path for the chaincode. Make sure your docker containers use the same path when using this option. | `string`                                       | No, defaults to `chaincode`            |
 | copyGlobPattern      | Overwrite the glob pattern used to copy files from the chaincode location to the destination.                  | `string`                                       | No, defaults to `**/*`                 |
 
 
-## Watch mode
+### Watch mode
 
-By default the script will watch your chaincode directory for any changes. When a change happens the chaincode will deploy a newer version of the chaincode.
+When this option is enabled the script will watch your chaincode directory for any changes. When a change happens the chaincode will deploy a newer version of the chaincode.
 
 **Changes to package.json will not be picked up, if you add a dependency you will need to restart the entire script.**
 

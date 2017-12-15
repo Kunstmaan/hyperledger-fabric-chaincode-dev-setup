@@ -12,4 +12,8 @@ if (Array.isArray(chaincodeLocationArg)) {
     chaincodeLocations = [path.resolve(chaincodeLocationArg)];
 }
 
-setupDevEnv({chaincodeLocations});
+setupDevEnv({chaincodeLocations}).then(() => {
+    console.log('Dev env started.');
+}).catch(() => {
+    process.exit(1);
+});

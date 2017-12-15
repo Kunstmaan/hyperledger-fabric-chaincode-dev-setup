@@ -43,6 +43,10 @@ setupDevEnv({
     dockerFile: './chaincode-docker-devmode/docker-compose-simple.yaml',
     chaincodeDestination: './chaincode',
     copyGlobPattern: '**/*'
+}).then(() => {
+    console.log('Dev env started.');
+}).catch(() => {
+    process.exit(1);
 });
 ```
 

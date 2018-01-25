@@ -73,13 +73,3 @@ Steps which are done behind the scenes:
 2. Install npm packages needed for the chaincode script
 3. Build/deploy and instantiate the chaincode
 4. Start watching the chaincode for changes, when a change happens an upgrade of the chaincode is done
-
-## Backlog
-
-1. Watch support for package.json 
-2. Only copy changed files inside watch
-3. Fake `fabric-shim` to support local debugging / local database (eg using json on the file system)
-4. Go language support
-5. Live adding of new chaincodes
-6. Document structure of a chaincode package.json file (name and hf-dev-channel)
-7. Improve performance by not recreating the docker images (detect the latest version of chaincode using peer chaincode list --installed), use a separate function to start from a clean setup

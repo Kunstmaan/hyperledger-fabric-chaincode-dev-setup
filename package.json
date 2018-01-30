@@ -23,6 +23,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kunstmaan/hyperledger-fabric-network-setup.git"
+    "url": "https://github.com/Kunstmaan/hyperledger-fabric-chaincode-dev-setup.git"
   }
 }

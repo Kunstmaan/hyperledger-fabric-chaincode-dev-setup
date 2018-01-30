@@ -26,7 +26,7 @@ When running from many locations you can specifiy this argument multiple times u
 You can also install this as an npm module in your project and run it within a node.js script.
 
 ```javascript
-const setupDevEnv = require('hyperledger-fabric-chaincode-dev-setup');
+const setupDevEnv = require('@kunstmaan/hyperledger-fabric-chaincode-dev-setup');
 
 setupDevEnv({
     chaincodeLocations: [

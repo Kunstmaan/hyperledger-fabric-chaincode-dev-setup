@@ -1,0 +1,31 @@
+{
+  "GOPATH": "../artifacts", 
+  "channel": "defaultchannel", 
+  "eventWaitTime": "30000", 
+  "host": "localhost", 
+  "keyValueStore": "/tmp/fabric-client-kvs", 
+  "mysql": {
+    "database": "fabricexplorer", 
+    "host": "mysql", 
+    "passwd": "password", 
+    "port": "3306", 
+    "username": "root"
+  }, 
+  "network-config": {
+    "org1": {
+      "admin": {
+        "cert": "/crypto-config/org1.example.be/users/admin.org1.example.be/msp/signcerts", 
+        "key": "/crypto-config/org1.example.be/users/admin.org1.example.be/msp/keystore"
+      }, 
+      "mspid": "org1-example-be-MSP", 
+      "name": "org1.example.be", 
+      "peer1": {
+        "events": "grpc://peer:7051", 
+        "requests": "grpc://peer:7051", 
+        "server-hostname": "peer", 
+        "tls_cacerts": "/crypto-config/org1.example.be/peers/peer.org1.example.be/tlsca.combined.peer.org1.example.be-cert.pem"
+      }
+    }
+  }, 
+  "port": "8080"
+}

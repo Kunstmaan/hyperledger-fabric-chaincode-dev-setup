@@ -1,0 +1,39 @@
+
+version: '2'
+
+# This file has been auto-generated
+
+services:
+  orderer.org1.example.be:
+    image:        hyperledger/fabric-orderer
+    container_name: orderer.org1.example.be
+    ports:
+      - 7050:7050
+    working_dir:  /opt/gopath/src/github.com/hyperledger/fabric/orderers
+    command:      orderer
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    environment:
+        - ORDERER_GENERAL_LOGLEVEL=debug
+        - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+        - ORDERER_GENERAL_GENESISMETHOD=file
+        - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/orderer.org1.example.be.genesis.block
+        - ORDERER_GENERAL_LOCALMSPID=org1-example-be-MSP
+        - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/crypto-config/orderer/msp
+        - ORDERER_GENERAL_TLS_ENABLED=true
+        - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/crypto-config/orderer/tlsca/tlsca.orderer.org1.example.be-cert.pem,/etc/hyperledger/crypto-config/peer.org1.example.be/tlsca/tlsca.peer.org1.example.be-cert.pem]
+        - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/crypto-config/orderer/tlsca/tlsca.orderer.org1.example.be-key.pem
+        - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/crypto-config/orderer/tlsca/tlsca.orderer.org1.example.be-cert.pem
+    volumes:
+        - /vagrant/channel/:/etc/hyperledger/configtx
+        - /vagrant/crypto-config/org1.example.be/orderers/orderer.org1.example.be/:/etc/hyperledger/crypto-config/orderer
+        - /vagrant/crypto-config/org1.example.be/peers/peer.org1.example.be/:/etc/hyperledger/crypto-config/peer.org1.example.be
+
+networks:
+  default:
+    external:
+      name: hyperledgerNet
+

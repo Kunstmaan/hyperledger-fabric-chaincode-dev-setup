@@ -1,0 +1,58 @@
+# Created by Guillaume Leurquin, guillaume.leurquin@accenture.com
+
+# Assumes port 7051 is first in the peers.
+# Assumes the organisation admin is first in the admins
+# Tools CLI uses the first orderer in the list for each org
+
+PREGEN_CAs:
+  - ca: &DEFAULT_CA
+      Domain: example.be
+      Port: 7054
+
+Orgs:
+  - &Org1
+    Name: &DefaultName Org1
+    Domain: &DefaultDomain org1.example.be
+    ca:
+      Parent: *DEFAULT_CA
+      Domain: *DefaultDomain
+    tlsca:
+      Parent: *DEFAULT_CA
+      Domain: *DefaultDomain
+    peers:
+      - Hostname: &Peer peer
+        Ports:
+          - 7051:7051
+          - 7053:7053
+        CouchdbPort: 5984
+        Tools: defaultchannel
+    orderers:
+      - Hostname: orderer
+        Peers:
+          - Hostname: *Peer
+            Org: *DefaultDomain
+        Port: 7050
+        AdminOrgs:
+          # Must be a subset of the consortiums
+          - *DefaultName
+        Consortiums:
+          # Refers to consortium name
+          - &DefaultConsortium
+            Name: DefaultConsortium
+            Organizations:
+              - *DefaultName
+        Channels:
+          - &defaultchannel defaultchannel
+    admins:
+      - Hostname: admin
+    users:
+      - Hostname: user-1
+      - Hostname: user-2
+  
+Channels:
+  - Name: *defaultchannel
+    Consortium: *DefaultConsortium
+    Organizations:
+      - *DefaultName
+
+Devmode: *Org1

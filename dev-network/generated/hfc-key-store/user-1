@@ -1,0 +1,14 @@
+{
+  "name": "user-1",
+  "mspid": "org1-example-be-MSP",
+  "roles": null,
+  "affiliation": "",
+  "enrollmentSecret": "",
+  "enrollment": {
+    "signingIdentity": "6c90c306e656f05eca42e02e0b829855de6e2b072ad62b4db854a35be809b265",
+    "identity": {
+      "certificate": "-----BEGIN CERTIFICATE-----\nMIICCzCCAbCgAwIBAgIJAP+82Yeo8CrUMAoGCCqGSM49BAMCMEgxCzAJBgNVBAYT\nAmJlMRAwDgYDVQQKDAdleGFtcGxlMQ0wCwYDVQQLDARvcmcxMRgwFgYDVQQDDA9v\ncmcxLmV4YW1wbGUuYmUwHhcNMTgwMjAyMDcxOTE1WhcNMjgwMTMxMDcxOTE1WjBP\nMQswCQYDVQQGEwJiZTEQMA4GA1UECgwHZXhhbXBsZTENMAsGA1UECwwEb3JnMTEf\nMB0GA1UEAwwWdXNlci0xLm9yZzEuZXhhbXBsZS5iZTBZMBMGByqGSM49AgEGCCqG\nSM49AwEHA0IABPyEvWa9oxaIyS857ssOQVwFPxEEpdOgAWYNMt7wuExF583qqyh7\n2zWcYzxLrjVMgWXECvsHO61ldD6L/lM/mlWjfDB6MBoGCCoDBAUGBwgBBA4MDHsi\nYXR0cnMiOnt9fTAfBgNVHSMEGDAWgBRFwBcpRC08wPAYAw+NlVHSSslc7TAMBgNV\nHRMBAf8EAjAAMB0GA1UdDgQWBBTCHjsGf4ofiJgCpKzD/b3awmk+/zAOBgNVHQ8B\nAf8EBAMCB4AwCgYIKoZIzj0EAwIDSQAwRgIhAPZVi8FXWV3k0dAXT4zcanHHr66+\nYMLXieuiPyZRY3J+AiEA74l7kSPCdz+kffb9/tbmdrIKXz0Ei4etwWJcwohDddI=\n-----END CERTIFICATE-----\n"
+    }
+  }
+}
+

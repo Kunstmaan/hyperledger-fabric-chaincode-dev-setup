@@ -77,3 +77,13 @@ Steps which are done behind the scenes:
 2. Install npm packages needed for the chaincode script
 3. Build/deploy and instantiate the chaincode
 4. Start watching the chaincode for changes, when a change happens an upgrade of the chaincode is done
+
+## Update the example network
+
+The example network setup has been generated using the [hyperledger-fabric-network-setup](https://github.com/Kunstmaan/hyperledger-fabric-network-setup) scripts.
+
+Perform following steps to regenerate it:
+
+1. Follow the [installation steps](https://github.com/Kunstmaan/hyperledger-fabric-network-setup#install)
+2. Run `cd network-setup`
+2. Run `sudo kuma-hf-network generate crypto-config.yaml`

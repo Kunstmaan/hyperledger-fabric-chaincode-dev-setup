@@ -40,8 +40,8 @@ setupDevEnv({
         return true;
     },
     watchMode: false,
-    dockerFile: './chaincode-docker-devmode/docker-compose-simple.yaml',
-    chaincodeDestination: './chaincode',
+    dockerFile: './dev-network/generated/devmode/docker-compose-simple.yaml',
+    chaincodeDestination: './dev-network/generated/devmode/chaincode',
     copyGlobPattern: '**/*'
 }).then(() => {
     console.log('Dev env started.');
@@ -55,8 +55,8 @@ setupDevEnv({
 | chaincodeLocations   | Paths to the chain code directories.                                                                           | `Array<string>`                                | Yes                                    |
 | logOutputToConsole   | Called when a shell script writes something to the console                                                     | `(script: string, message: string) => boolean` | No, filters debug messages by default  |
 | watchMode            | Watch files for changes, auto update chaincode when a file changes.                                            | `boolean`                                      | No, by default the user can update chaincode using the prompt window |
-| dockerFile           | Location of the docker compose file for the network                                                            | `string`                                       | No, defaults to `chaincode-docker-devmode/docker-compose-simple.yaml` |
-| chaincodeDestination | Destination path for the chaincode. Make sure your docker containers use the same path when using this option. | `string`                                       | No, defaults to `chaincode`            |
+| dockerFile           | Location of the docker compose file for the network                                                            | `string`                                       | No, defaults to `dev-network/generated/devmode/docker-compose-simple.yaml` |
+| chaincodeDestination | Destination path for the chaincode. Make sure your docker containers use the same path when using this option. | `string`                                       | No, defaults to `dev-network/generated/devmode/chaincode`            |
 | copyGlobPattern      | Overwrite the glob pattern used to copy files from the chaincode location to the destination.                  | `string`                                       | No, defaults to `**/*`                 |
 
 

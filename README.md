@@ -10,7 +10,7 @@ For more info on developing chaincode please have a look at the [online tutorial
 
 Make sure you have done the following things:
 
-1. Use at least version 1.1.0-preview for the docker images. If not run './setupDockerImages.sh' which you can find in the root of this project.
+1. Use at least version 1.1.0-preview for the docker images. If not run './scripts/setupDockerImages.sh'.
 2. Add the path of the repo to the docker file sharing preferences
 3. Run `npm install`
 
@@ -68,7 +68,7 @@ When this option is enabled the script will watch your chaincode directory for a
 
 ## What is the script doing
 
-It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html). 
+It automates the steps inside the [tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html).
 No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
 
 Steps which are done behind the scenes:

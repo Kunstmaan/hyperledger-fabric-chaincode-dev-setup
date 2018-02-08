@@ -1,13 +1,13 @@
 {
   "name": "@kunstmaan/hyperledger-fabric-chaincode-dev-setup",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "index.js",
   "bin": {
     "kuma-hf-chaincode-dev": "bin.js"
   },
   "scripts": {
-    "postinstall": "./src/scripts/setupDockerImages.sh",
+    "start": "node setupDevEnv.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kunstmaan",

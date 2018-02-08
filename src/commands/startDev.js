@@ -24,10 +24,10 @@ module.exports.builder = {
 };
 
 module.exports.handler = function(argv) {
-    console.log('executing start-dev');
+    console.log(`executing start-dev with watch mode ${argv.watch ? 'on' : 'off'}`);
 
     if (argv.chaincodePath) {
-        
+
         // run simple network
         return setupDevEnv({
             'chaincodeLocations': argv.chaincodePath.map((cp) => {

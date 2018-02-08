@@ -1,3 +1,4 @@
 node_modules
 .vscode
 dev-network/generated/devmode/chaincode
+*.orig

@@ -89,7 +89,7 @@ services:
     volumes:
         - /var/run/:/host/var/run/
         - ../crypto-config/org1.example.be/peers/peer.org1.example.be/msp:/etc/hyperledger/msp
-        - ./chaincodes:/opt/gopath/src/chaincode
+        - ./chaincode:/opt/gopath/src/chaincode
     depends_on:
       - orderer
       - peer

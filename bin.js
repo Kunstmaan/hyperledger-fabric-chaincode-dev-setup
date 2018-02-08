@@ -8,7 +8,8 @@ argv = argv.usage('Usage: $0 <command> [options]');
     'startDev',
     'build',
     'createChaincode',
-    'createMigration'
+    'createMigration',
+    'cleanupChaincode'
 ].forEach((commandName) => {
     const commandPath = `./src/commands/${commandName}`;
     argv = argv.command(require(commandPath));

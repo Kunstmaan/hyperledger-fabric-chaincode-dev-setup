@@ -2,24 +2,34 @@
   "name": "@kunstmaan/hyperledger-fabric-chaincode-dev-setup",
   "version": "0.2.0",
   "description": "",
-  "main": "lib/index.js",
+  "main": "index.js",
+  "bin": {
+    "kuma-hf-chaincode-dev": "bin.js"
+  },
   "scripts": {
-    "postinstall": "./scripts/setupDockerImages.sh",
-    "clean": "rm -rf ./chaincode",
-    "start": "node setupDevEnv.js",
+    "postinstall": "./src/scripts/setupDockerImages.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "janb87",
-  "license": "ISC",
+  "author": "Kunstmaan",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^2.3.0",
-    "chokidar": "^1.7.0",
-    "fs-extra": "^4.0.2",
+    "chokidar": "^2.0.0",
+    "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "inquirer": "^4.0.1",
     "merge": "^1.2.0",
     "through": "^2.3.8",
-    "yargs": "^10.0.3"
+    "yargs": "^11.0.0",
+    "date-format": "^1.2.0",
+    "find-up": "^2.1.0",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.7.0"
   },
   "repository": {
     "type": "git",

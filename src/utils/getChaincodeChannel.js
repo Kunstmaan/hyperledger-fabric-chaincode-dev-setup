@@ -1,13 +1,14 @@
 const getChaincodeConfig = require('./getChaincodeConfig');
-const constants = require('./../constants/index');
+
+const CONSTANTS = require('./../constants/index');
 
 module.exports = function getChaincodeChannel(chaincodeLocation) {
     const config = getChaincodeConfig(chaincodeLocation);
 
     if (config != null) {
 
-        return config['hf-dev-channel'] || constants.DEFAULT_CHANNEL;
+        return config['hf-dev-channel'] || CONSTANTS.DEFAULT_CHANNEL;
     }
 
-    return constants.DEFAULT_CHANNEL;
+    return CONSTANTS.DEFAULT_CHANNEL;
 };

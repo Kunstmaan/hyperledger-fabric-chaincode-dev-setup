@@ -1,8 +1,9 @@
 const path = require('path');
-const {SCRIPTS_PATH, DEPLOY_FINISHED_REGEX} = require('./constants');
-const startShell = require('./utils/startShell');
-const getChaincodeName = require('./utils/getChaincodeName');
-const getChaincodeChannel = require('./utils/getChaincodeChannel');
+
+const {SCRIPTS_PATH, DEPLOY_FINISHED_REGEX} = require('./../constants');
+const startShell = require('./startShell');
+const getChaincodeName = require('./getChaincodeName');
+const getChaincodeChannel = require('./getChaincodeChannel');
 
 module.exports = function initChaincode(chaincodeLocation) {
     const chaincodeName = getChaincodeName(chaincodeLocation);
@@ -21,7 +22,7 @@ module.exports = function initChaincode(chaincodeLocation) {
             .then(() => startShell(path.join(SCRIPTS_PATH, 'initChaincode.sh'), shellEnvVariables))
             .then(resolve)
             .catch((err) => {
-                console.log(`Initializing chaincode failed`, err);
+                console.log('Initializing chaincode failed', err);
                 reject(err);
             });
     });

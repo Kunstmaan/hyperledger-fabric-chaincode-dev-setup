@@ -81,7 +81,7 @@ module.exports = function startShell(
                     hasFinished = true;
                     resolve();
                 }
-            }, maxTimeout)
+            }, maxTimeout);
         }
 
         process.on('exit', () => {
@@ -91,7 +91,7 @@ module.exports = function startShell(
             }
         });
     });
-}
+};
 
 module.exports.setLogOutputToConsole = (fnc) => {
     logOutputToConsole = fnc;

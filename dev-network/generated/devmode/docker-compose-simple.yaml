@@ -89,7 +89,7 @@ services:
     volumes:
         - /var/run/:/host/var/run/
         - ../crypto-config/org1.example.be/peers/peer.org1.example.be/msp:/etc/hyperledger/msp
-        - ./chaincode:/opt/gopath/src/chaincode
+        - ./chaincodes:/opt/gopath/src/chaincode
     depends_on:
       - orderer
       - peer
@@ -106,7 +106,7 @@ services:
     # for example map it to utilize Fauxton User Interface in dev environments.
     ports:
       - "5984:5984"
-      
+
 networks:
   default:
     external:

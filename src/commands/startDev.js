@@ -27,8 +27,8 @@ module.exports.handler = function(argv) {
     console.log('executing start-dev');
 
     if (argv.chaincodePath) {
+        
         // run simple network
-
         return setupDevEnv({
             'chaincodeLocations': argv.chaincodePath.map((cp) => {
                 
@@ -40,76 +40,75 @@ module.exports.handler = function(argv) {
         }).catch(() => {
             process.exit(1);
         });
-    } else {
-        // locate configuration and use that
-
-        return locateConfig('./').then(({configPath, configContents}) => {
-            const cwdPath = path.dirname(configPath);
-            const sourcePath = path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_SOURCE_PATH_KEY]);
-            const buildPath = path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_BUILD_PATH_KEY]);
-            const chaincodes = configContents[CONSTANTS.CONFIG_CHAINCODES_KEY];
-            const chaincodesBasePath = path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME);
-
-            const dockerFile = configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY]) : CONSTANTS.DEFAULT_DOCKER_FILE;
-            const chaincodeDestination = configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY]) : CONSTANTS.DEFAULT_CHAINCODE_DESTINATION_PATH;
-    
-            return build(sourcePath, buildPath, chaincodes).then(() => {
-                const buildedChaincodeLocations = chaincodes.map((chaincode) => {
-    
-                    return path.resolve(buildPath, chaincode);
-                });
-    
-                return setupDevEnv({
-                    'chaincodeLocations': buildedChaincodeLocations,
-                    'dockerFile': dockerFile,
-                    'chaincodeDestination': chaincodeDestination,
-                    'copyGlobPattern': '**/!(package-lock.json)',
-                    'watchMode': argv.watch
-                });
-            }).then(() => {
-                const filesToWatch = [];
-    
-                chaincodes.forEach((chaincode) => {
-                    const chaincodePath = path.join(chaincodesBasePath, chaincode);
-    
-                    filesToWatch.push(path.join(chaincodePath, '**/*.js'));
-                    filesToWatch.push(path.join(chaincodePath, 'package.json'));
-                    filesToWatch.push(`!${path.join(chaincodePath, 'playground.js')}`);
-                    filesToWatch.push(`!${path.join(chaincodePath, 'node_modules/**')}`);
-                });
-    
-                chokidar.watch(filesToWatch, {
-                    ignoreInitial: true,
-                    followSymlinks: false
-                }).on('all', (event, filePath) => {
-                    const updatedChaincode = chaincodes.find((c) => {
-                        const chaincodePath = path.join(chaincodesBasePath, c);
-    
-                        return filePath.startsWith(chaincodePath);
-                    });
-    
-                    if (updatedChaincode) {
-                        console.log(`Updating file ${filePath} for chaincode ${updatedChaincode}`);
-    
-                        buildChaincode(updatedChaincode, sourcePath, buildPath, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath));
-                    }
-                });
-    
-                chokidar.watch([
-                    path.join(__dirname, 'src/common/**/*.js'),
-                    path.join(__dirname, 'src/common/package.json'),
-                    `!${path.join(__dirname, 'src/common/node_modules/**')}`
-                ], {
-                    ignoreInitial: true
-                }).on('all', () => {
-                    console.log('Updating common');
-    
-                    buildCommon(chaincodes, sourcePath, buildPath);
-                });
-            });
-        }).catch((err) => {
-            console.error(err);
-            process.exit(1);
-        });
     }
+
+    // locate configuration and use that
+    return locateConfig('./').then(({configPath, configContents}) => {
+        const cwdPath = path.dirname(configPath);
+        const sourcePath = path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_SOURCE_PATH_KEY]);
+        const buildPath = path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_BUILD_PATH_KEY]);
+        const chaincodes = configContents[CONSTANTS.CONFIG_CHAINCODES_KEY];
+        const chaincodesBasePath = path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME);
+
+        const dockerFile = configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY]) : CONSTANTS.DEFAULT_DOCKER_FILE;
+        const chaincodeDestination = configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY]) : CONSTANTS.DEFAULT_CHAINCODE_DESTINATION_PATH;
+
+        return build(sourcePath, buildPath, chaincodes).then(() => {
+            const buildedChaincodeLocations = chaincodes.map((chaincode) => {
+
+                return path.resolve(buildPath, chaincode);
+            });
+
+            return setupDevEnv({
+                'chaincodeLocations': buildedChaincodeLocations,
+                'dockerFile': dockerFile,
+                'chaincodeDestination': chaincodeDestination,
+                'copyGlobPattern': '**/!(package-lock.json)',
+                'watchMode': argv.watch
+            });
+        }).then(() => {
+            const filesToWatch = [];
+
+            chaincodes.forEach((chaincode) => {
+                const chaincodePath = path.join(chaincodesBasePath, chaincode);
+
+                filesToWatch.push(path.join(chaincodePath, '**/*.js'));
+                filesToWatch.push(path.join(chaincodePath, 'package.json'));
+                filesToWatch.push(`!${path.join(chaincodePath, 'playground.js')}`);
+                filesToWatch.push(`!${path.join(chaincodePath, 'node_modules/**')}`);
+            });
+
+            chokidar.watch(filesToWatch, {
+                ignoreInitial: true,
+                followSymlinks: false
+            }).on('all', (event, filePath) => {
+                const updatedChaincode = chaincodes.find((c) => {
+                    const chaincodePath = path.join(chaincodesBasePath, c);
+
+                    return filePath.startsWith(chaincodePath);
+                });
+
+                if (updatedChaincode) {
+                    console.log(`Updating file ${filePath} for chaincode ${updatedChaincode}`);
+
+                    buildChaincode(updatedChaincode, sourcePath, buildPath, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath));
+                }
+            });
+
+            chokidar.watch([
+                path.join(__dirname, 'src/common/**/*.js'),
+                path.join(__dirname, 'src/common/package.json'),
+                `!${path.join(__dirname, 'src/common/node_modules/**')}`
+            ], {
+                ignoreInitial: true
+            }).on('all', () => {
+                console.log('Updating common');
+
+                buildCommon(chaincodes, sourcePath, buildPath);
+            });
+        });
+    }).catch((err) => {
+        console.error(err);
+        process.exit(1);
+    });
 };

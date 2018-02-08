@@ -5,7 +5,7 @@ const locateConfig = require('../utils/locateConfig');
 const CONSTANTS = require('../constants');
 
 module.exports.command = 'cleanup-chaincode';
-module.exports.describe = 'cleanup the chaincode the project';
+module.exports.describe = 'cleanup the chaincode on the development network';
 
 module.exports.handler = function() {
     console.log('executing cleanup-chaincode');

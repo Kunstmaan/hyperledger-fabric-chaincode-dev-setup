@@ -12,7 +12,7 @@ module.exports = {
     CONFIG_CHAINCODE_DESTINATION_KEY: 'chaincodeDestination',
 
     DEFAULT_CHANNEL: 'defaultchannel',
-    DEFAULT_CHAINCODE_DESTINATION_PATH: path.resolve(__dirname, '../../dev-network/generated/devmode/chaincodes'),
+    DEFAULT_CHAINCODE_DESTINATION_PATH: path.resolve(__dirname, '../../dev-network/generated/devmode/chaincode'),
     DEFAULT_DOCKER_FILE: path.resolve(__dirname, '../../dev-network/generated/devmode/docker-compose-simple.yaml'),
     SCRIPTS_PATH: path.resolve(__dirname, '../scripts'),
     DOCKER_SETUP_FINISHED_REGEX: /^.*?orderer.*?\[orderer\/common\/deliver\]\s+deliverBlocks\s+->\s+DEBU\s[0-9].*?\[channel:\s+.*?\]\s+Received\s+seekInfo\s+\(.*?\)\s+start:.*?$/gmi,

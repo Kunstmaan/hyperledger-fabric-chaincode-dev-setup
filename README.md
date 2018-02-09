@@ -20,6 +20,41 @@ With the following command you can get an overview of all the commands available
 kuma-hf-chaincode-dev -h
 ```
 
+### Start dev network environment
+
+Make sure you have at least version 1.1.0-preview of the docker images installed. For this you can use the following command:
+
+``` 
+kuma-hf-chaincode-dev setup-docker-images
+```
+
+Furthermore you must make sure that the 'chaincode destination directory' is accesible to docker using the docker file sharing preferences. If you didn't specify this directory you must make sure the path of the npm package itself is added to the docker file sharing preference.
+
+#### Initialized project
+
+When you want to start a dev network on an initialized project you can just run:
+
+``` 
+kuma-hf-chaincode-dev start-dev [optional -w]
+``` 
+
+In this case all configuration is found in the package.json.
+
+When you want to run a dev network without using our project structure.
+
+`-w` enables watch mode on the network.
+
+#### Standalone mode
+
+``` 
+kuma-hf-chaincode-dev start-dev --cp ./example-chaincode/fabcar1 --cp ./example-chaincode/fabcar2 [optional -w]
+```
+
+`cp` stands for `chaincodePath` and you can replace the  argument value with the path of the chaincode you wish to run.
+When running from many locations you can specifiy this argument multiple times using different values.
+
+`-w` enables watch mode on the network.
+
 ### Initializing new Project
 
 ``` 
@@ -64,41 +99,6 @@ kuma-hf-chaincode-dev build
 ```
 
 This will move the chaincodes to the `buildPath` and integrate the common part within each of them. This is useful for deploying to a real network. `start-dev` will also use this behind the scenes.
-
-### Start dev network environment
-
-Make sure you have at least version 1.1.0-preview of the docker images installed. For this you can use the following command:
-
-``` 
-kuma-hf-chaincode-dev setup-docker-images
-```
-
-Furthermore you must make sure that the 'chaincode destination directory' is accesible to docker using the docker file sharing preferences. If you didn't specify this directory you must make sure the path of the npm package itself is added to the docker file sharing preference.
-
-#### Initialized project
-
-When you want to start a dev network on an initialized project you can just run:
-
-``` 
-kuma-hf-chaincode-dev start-dev [optional -w]
-``` 
-
-In this case all configuration is found in the package.json.
-
-When you want to run a dev network without using our project structure.
-
-`-w` enables watch mode on the network.
-
-#### Standalone mode
-
-``` 
-kuma-hf-chaincode-dev start-dev --cp ./example-chaincode/fabcar1 --cp ./example-chaincode/fabcar2 [optional -w]
-```
-
-`cp` stands for `chaincodePath` and you can replace the  argument value with the path of the chaincode you wish to run.
-When running from many locations you can specifiy this argument multiple times using different values.
-
-`-w` enables watch mode on the network.
 
 ### Cleanup chaincode on dev network
 

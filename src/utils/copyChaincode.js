@@ -1,7 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
-const getChaincodeName = require('./utils/getChaincodeName');
-const glob = require("glob");
+const glob = require('glob');
+
+const getChaincodeName = require('./getChaincodeName');
 
 module.exports = function copyChaincode(chaincodeLocation, chaincodeDestination, copyGlobPattern) {
     const chaincodeName = getChaincodeName(chaincodeLocation);
@@ -27,10 +28,10 @@ module.exports = function copyChaincode(chaincodeLocation, chaincodeDestination,
         console.log('Copying files which match following pattern', globPattern);
 
         // options is optional
-        glob(globPattern, (err, files) => {
-            if (err) {
-                console.log('Failed to copy chaincode files', err);
-                reject(err);
+        glob(globPattern, (globErr, files) => {
+            if (globErr) {
+                console.log('Failed to copy chaincode files', globErr);
+                reject(globErr);
                 return;
             }
 
@@ -38,21 +39,22 @@ module.exports = function copyChaincode(chaincodeLocation, chaincodeDestination,
             files.forEach((file) => {
                 copyPromises.push(new Promise((copyResolve, copyReject) => {
                     const targetFilePath = path.join(targetDir, path.relative(chaincodeLocation, file));
-                    fs.ensureDir(path.dirname(targetFilePath), (err) => {
-                        if (err) {
-                            copyReject(err);
+                    fs.ensureDir(path.dirname(targetFilePath), (dirErr) => {
+                        if (dirErr) {
+                            copyReject(dirErr);
                             return;
                         }
                         fs.copyFile(
                             file,
                             targetFilePath,
-                            (err) => {
-                                if (err) {
-                                    copyReject(err);
+                            (copyErr) => {
+                                if (copyErr) {
+                                    copyReject(copyErr);
                                     return;
                                 }
                                 copyResolve();
-                            });
+                            }
+                        );
                     });
                 }));
             });

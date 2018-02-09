@@ -1,8 +1,9 @@
 const path = require('path');
-const {SCRIPTS_PATH, DEPLOY_FINISHED_REGEX} = require('./constants');
-const startShell = require('./utils/startShell');
-const getChaincodeName = require('./utils/getChaincodeName');
-const getChaincodeChannel = require('./utils/getChaincodeChannel');
+
+const {SCRIPTS_PATH, DEPLOY_FINISHED_REGEX} = require('./../constants');
+const startShell = require('./startShell');
+const getChaincodeName = require('./getChaincodeName');
+const getChaincodeChannel = require('./getChaincodeChannel');
 
 module.exports = function upgradeChaincode(chaincodeLocation, version) {
     const chaincodeName = getChaincodeName(chaincodeLocation);
@@ -21,7 +22,7 @@ module.exports = function upgradeChaincode(chaincodeLocation, version) {
             .then(() => startShell(path.join(SCRIPTS_PATH, 'upgradeChaincode.sh'), shellEnvVariables))
             .then(resolve)
             .catch((err) => {
-                console.log(`Upgrading chaincode failed`, err);
+                console.log('Upgrading chaincode failed', err);
                 reject(err);
             });
     });

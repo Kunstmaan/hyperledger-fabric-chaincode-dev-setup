@@ -10,6 +10,9 @@ module.exports = {
     CONFIG_TEST_PATH_KEY: 'testPath',
     CONFIG_DOCKER_FILE_KEY: 'dockerFile',
     CONFIG_CHAINCODE_DESTINATION_KEY: 'chaincodeDestination',
+    CONFIG_DEV_DEPENDENCIES: [
+        'jest'
+    ],
 
     DEFAULT_CHANNEL: 'defaultchannel',
     DEFAULT_CHAINCODE_DESTINATION_PATH: path.resolve(__dirname, '../../dev-network/generated/devmode/chaincode'),

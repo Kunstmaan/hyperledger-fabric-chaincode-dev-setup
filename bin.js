@@ -5,6 +5,7 @@ argv = argv.usage('Usage: $0 <command> [options]');
 
 [
     'init',
+    'setupDockerImages',
     'startDev',
     'build',
     'createChaincode',

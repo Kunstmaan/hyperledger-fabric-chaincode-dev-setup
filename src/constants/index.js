@@ -11,8 +11,15 @@ module.exports = {
     CONFIG_DOCKER_FILE_KEY: 'dockerFile',
     CONFIG_CHAINCODE_DESTINATION_KEY: 'chaincodeDestination',
     CONFIG_DEV_DEPENDENCIES: [
-        'jest'
+        'jest',
+        '@kunstmaan/hyperledger-fabric-chaincode-dev-setup'
     ],
+    CONFIG_SCRIPTS: {
+        'clean': 'rm -rf ./build && kuma-hf-chaincode-dev cleanup-chaincode',
+        'start': 'kuma-hf-chaincode-dev start-dev',
+        'build': 'kuma-hf-chaincode-dev build',
+        'test': 'jest test/'
+    },
 
     DEFAULT_CHANNEL: 'defaultchannel',
     DEFAULT_CHAINCODE_DESTINATION_PATH: path.resolve(__dirname, '../../dev-network/generated/devmode/chaincode'),

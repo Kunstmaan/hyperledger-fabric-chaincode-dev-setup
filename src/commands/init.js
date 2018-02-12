@@ -18,6 +18,7 @@ module.exports.handler = function(argv) {
 
     return readOrCreatePackageFile(cwdPath)
         .then(addDependencies(cwdPath))
+        .then(addScripts(cwdPath))
         .then(addConfiguration(cwdPath))
         .then(printContents('Saving package.json'))
         .then(savePackageFile(cwdPath))
@@ -78,6 +79,17 @@ function savePackageFile(cwdPath) {
     };
 }
 
+function addScripts() {
+
+    return function(contents) {
+        const packageContents = contents;
+        packageContents.scripts = packageContents.scripts || {};
+        packageContents.scripts = _.defaults(packageContents.scripts, CONSTANTS.CONFIG_SCRIPTS);
+
+        return packageContents;
+    };
+}
+
 function addDependencies() {
 
     return function(contents) {
@@ -101,8 +113,11 @@ function addDependencies() {
             const packageContents = contents;
             packageContents.devDependencies = contents.devDependencies || {};
 
-            for (const {dependency, version} of dependencies) {
-                packageContents.devDependencies[dependency] = `^${version}`;
+            for (const dependencyVersionMapping of dependencies) {
+                if (dependencyVersionMapping != null) {
+                    const {dependency, version} = dependencyVersionMapping;
+                    packageContents.devDependencies[dependency] = `^${version}`;
+                }
             }
 
             return packageContents;

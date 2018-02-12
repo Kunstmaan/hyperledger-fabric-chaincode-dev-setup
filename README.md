@@ -11,7 +11,7 @@ For more info on developing chaincode please have a look at the [online tutorial
 ### Installing 
 
 ```
-npm install @kunstmaan/hyperledger-fabric-chaincode-dev -g
+npm install @kunstmaan/hyperledger-fabric-chaincode-dev-setup -g
 ```
 
 With the following command you can get an overview of all the commands available:

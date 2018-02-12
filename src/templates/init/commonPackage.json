@@ -1,15 +1,15 @@
 {
-  "name": "common",
-  "version": "1.0.0",
-  "description": "",
-  "main": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Kunstmaan",
-  "license": "ISC",
-  "dependencies": {
-    "hyperledger-fabric-node-chaincode-utils": "git+https://github.com/Kunstmaan/hyperledger-fabric-node-chaincode-utils.git",
-    "fabric-shim": "git+https://github.com/daanporon/fabric-shim.git"
-  }
+    "name": "common",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Kunstmaan",
+    "license": "MIT",
+    "dependencies": {
+        "hyperledger-fabric-node-chaincode-utils": "git+https://github.com/Kunstmaan/hyperledger-fabric-node-chaincode-utils.git",
+        "fabric-shim": "git+https://github.com/daanporon/fabric-shim.git"
+    }
 }

@@ -6,27 +6,120 @@ This repo contains out of a setup which makes it easy to develop node.js chainco
 
 For more info on developing chaincode please have a look at the [online tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html).
 
-## Before you start
+## CLI API
 
-Make sure you have done the following things:
+### Installing 
 
-1. Use at least version 1.1.0-preview for the docker images. If not run './scripts/setupDockerImages.sh'.
-2. Add the path of the repo to the docker file sharing preferences
-3. Run `npm install`
+```
+npm install @kunstmaan/hyperledger-fabric-chaincode-dev -g
+```
 
-## Starting the script
+With the following command you can get an overview of all the commands available:
 
-Spin up your dev environment by running `npm start -- --chaincodeLocation=./example-chaincode/fabcar1 --chaincodeLocation=./example-chaincode/fabcar2`.
+```
+kuma-hf-chaincode-dev -h
+```
 
-You can replace the `chaincodeLocation` argument value with the path of the chaincode you wish to run.
+### Start dev network environment
+
+Make sure you have at least version 1.1.0-preview of the docker images installed. For this you can use the following command:
+
+``` 
+kuma-hf-chaincode-dev setup-docker-images
+```
+
+Furthermore you must make sure that the 'chaincode destination directory' is accesible to docker using the docker file sharing preferences. If you didn't specify this directory you must make sure the path of the npm package itself is added to the docker file sharing preference.
+
+#### Initialized project
+
+When you want to start a dev network on an initialized project you can just run:
+
+``` 
+kuma-hf-chaincode-dev start-dev [optional -w]
+``` 
+
+In this case all configuration is found in the package.json.
+
+When you want to run a dev network without using our project structure.
+
+`-w` enables watch mode on the network.
+
+#### Standalone mode
+
+``` 
+kuma-hf-chaincode-dev start-dev --cp ./example-chaincode/fabcar1 --cp ./example-chaincode/fabcar2 [optional -w]
+```
+
+`cp` stands for `chaincodePath` and you can replace the  argument value with the path of the chaincode you wish to run.
 When running from many locations you can specifiy this argument multiple times using different values.
 
-## Node.js api
+`-w` enables watch mode on the network.
+
+### Initializing new Project
+
+``` 
+kuma-hf-chaincode-dev init <path>
+```
+
+Initializes a new project structure within the given path. This will create a `src/chaincodes`, `src/common` and `test` folder structure. And will add the needed configuration within the `package.json`. If no `package.json` is found it will trigger `npm init .`.
+
+* `src/chaincodes` is the folder that will contain all the chaincodes.
+* `src/common` is the folder that contains all the shared code between all the chaincodes.
+* `test` will be used for all the tests 
+
+This will also add the necesary configuration under the key `kuma-hf-chaincode-dev` to the `package.json`for the other commands to use. This configuration can be overwritten.
+
+* `chaincodes`: the list of all the chaincodes to deploy to the network
+* `sourcePath`: the path to the `src` directory 
+* `buildPath`: the path to where the chaincode should be builded, the build process will integrate the common part into each chaincode
+* `testPath`: the path to where the tests are
+* `dockerFile`: this is configuration for setting up the dev network. By default this will use the default dockerFile integrated within this repository
+* `chaincodeDestination`: the location where the chaincode should be moved so that it's mounted within the right docker container
+
+### Create new chaincode
+
+``` 
+kuma-hf-chaincode-dev create-chaincode <chaincode> [optional -d <description>]
+```
+
+Replace `chaincode` with the name of your chaincode. `-d` is optional and can be used to specify the description for the `package.json` of the chaincode.
+
+### Create new migration
+
+``` 
+kuma-hf-chaincode-dev create-migration <chaincode>
+```
+
+Generate a migration file for the given `chaincode`. This migration file can be used when installing our `hyperledger-fabric-node-chaincode-utils` package. 
+
+### Build Chaincode
+
+``` 
+kuma-hf-chaincode-dev build
+```
+
+This will move the chaincodes to the `buildPath` and integrate the common part within each of them. This is useful for deploying to a real network. `start-dev` will also use this behind the scenes.
+
+### Cleanup chaincode on dev network
+
+``` 
+kuma-hf-chaincode-dev cleanup-chaincode
+``` 
+
+This will cleanup all the chaincode that's installed on the dev network. If you run this in an initialized project it will use that configuration else it will cleanup the chaincode from the standalone version.
+
+## Node.js API
 
 You can also install this as an npm module in your project and run it within a node.js script.
 
+### Installing 
+
+```
+npm install @kunstmaan/hyperledger-fabric-chaincode-dev --save
+```
+
 ```javascript
-const setupDevEnv = require('@kunstmaan/hyperledger-fabric-chaincode-dev-setup');
+const {setupDevEnv} = require('@kunstmaan/hyperledger-fabric-chaincode-dev-setup');
 
 setupDevEnv({
     chaincodeLocations: [

@@ -7,7 +7,6 @@
     "kuma-hf-chaincode-dev": "bin.js"
   },
   "scripts": {
-    "start": "node setupDevEnv.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kunstmaan",
@@ -15,15 +14,16 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "chokidar": "^2.0.0",
+    "date-format": "^1.2.0",
+    "find-up": "^2.1.0",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "inquirer": "^4.0.1",
+    "latest-version": "^3.1.0",
+    "lodash": "^4.17.5",
     "merge": "^1.2.0",
     "through": "^2.3.8",
-    "yargs": "^11.0.0",
-    "date-format": "^1.2.0",
-    "find-up": "^2.1.0",
-    "lodash": "^4.17.5"
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "eslint": "^4.17.0",

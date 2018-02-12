@@ -2,6 +2,8 @@ const _ = require('lodash');
 const fs = require('fs-extra');
 const {spawn} = require('child_process');
 const path = require('path');
+const latestVersion = require('latest-version');
+
 const fileExistsWithMode = require('../utils/fileExistsWithMode');
 
 const CONSTANTS = require('../constants');
@@ -15,6 +17,7 @@ module.exports.handler = function(argv) {
     const cwdPath = path.resolve('./', argv.path);
 
     return readOrCreatePackageFile(cwdPath)
+        .then(addDependencies(cwdPath))
         .then(addConfiguration(cwdPath))
         .then(printContents('Saving package.json'))
         .then(savePackageFile(cwdPath))
@@ -75,6 +78,38 @@ function savePackageFile(cwdPath) {
     };
 }
 
+function addDependencies() {
+
+    return function(contents) {
+
+        return Promise.all(CONSTANTS.CONFIG_DEV_DEPENDENCIES.map((dependency) => {
+
+            if ((contents.devDependencies && contents.devDependencies[dependency]) ||
+                (contents.dependencies && contents.dependencies[dependency])) {
+
+                return null;
+            }
+
+            return latestVersion(dependency).then((version) => {
+
+                return {
+                    'dependency': dependency,
+                    'version': version
+                };
+            });
+        })).then((dependencies) => {
+            const packageContents = contents;
+            packageContents.devDependencies = contents.devDependencies || {};
+
+            for (const {dependency, version} of dependencies) {
+                packageContents.devDependencies[dependency] = `^${version}`;
+            }
+
+            return packageContents;
+        });
+    };
+}
+
 function addConfiguration() {
 
     return function(contents) {
@@ -121,8 +156,12 @@ function readOrCreatePackageFile(cwdPath) {
                         }
                     });
 
-                    npmInit.on('close', () => {
-                        fulfill();
+                    npmInit.on('close', (code) => {
+                        if (code !== 0) {
+                            reject(new Error(`Exitted with code ${code}`));
+                        } else {
+                            fulfill();
+                        }
                         stdinStream.end();
                     });
                 });

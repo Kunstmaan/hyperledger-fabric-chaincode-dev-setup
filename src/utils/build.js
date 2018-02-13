@@ -26,7 +26,7 @@ const buildCommon = function buildCommon(chaincodes, sourcePath, buildPath) {
             const chaincodeJsonPath = path.resolve(buildPath, chaincode, 'package.json');
             const chaincodePackage = require(chaincodeJsonPath);
 
-            _.defaults(chaincodePackage.dependencies || {}, commonDependencies);
+            chaincodePackage.dependencies = _.defaults(chaincodePackage.dependencies || {}, commonDependencies);
 
             return fs.writeFile(chaincodeJsonPath, JSON.stringify(chaincodePackage, null, 4), {
                 encoding: 'utf8'

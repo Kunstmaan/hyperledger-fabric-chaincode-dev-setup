@@ -47,8 +47,11 @@ function createStructure(cwdPath) {
                     fs.ensureDir(path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME)),
                     fs.ensureDir(commonPath).then(() => {
 
-                        return fileExistsWithMode(path.resolve(commonPath, 'package.json'), fs.constants.R_OK)
-                            .then((existsAndReadable) => {
+                        return Promise.all[
+                            fileExistsWithMode(
+                                path.resolve(commonPath, 'package.json'),
+                                fs.constants.R_OK
+                            ).then((existsAndReadable) => {
                                 if (!existsAndReadable) {
 
                                     return fs.copy(
@@ -58,7 +61,22 @@ function createStructure(cwdPath) {
                                 }
 
                                 return Promise.resolve();
-                            });
+                            }),
+                            fileExistsWithMode(
+                                path.resolve(commonPath, 'constants'),
+                                fs.constants.R_OK
+                            ).then((existsAndReadable) => {
+                                if (!existsAndReadable) {
+
+                                    return fs.copy(
+                                        path.resolve(__dirname, '../templates/init/constants'),
+                                        path.resolve(commonPath, 'constants')
+                                    );
+                                }
+
+                                return Promise.resolve();
+                            })
+                        ];
                     })
                 ]);
             })

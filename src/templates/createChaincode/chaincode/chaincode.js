@@ -1,12 +1,11 @@
 const shim = require('fabric-shim');
-const ChaincodeBase = require('./common/ChaincodeBase');
-const ChaincodeError = require('./common/ChaincodeError');
+const {ChaincodeBase, ChaincodeError} = require('@kunstmaan/hyperledger-fabric-node-chaincode-utils'); // eslint-disable-line
 
 const ERRORS = require('./common/constants/errors');
 const CONSTANTS = require('./common/constants/index');
 
-let Chaincode = class extends ChaincodeBase {
+let YOUR_CHAINCODE_NAME_PASCAL_CASEDChaincode = class extends ChaincodeBase {
 
 };
 
-shim.start(new Chaincode());
+shim.start(new YOUR_CHAINCODE_NAME_PASCAL_CASEDChaincode());

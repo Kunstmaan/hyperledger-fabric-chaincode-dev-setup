@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const path = require('path');
 const fs = require('fs-extra');
 const locateConfig = require('../utils/locateConfig');
@@ -29,33 +30,31 @@ module.exports.handler = function(argv) {
         }).then(() => {
 
             return Promise.all([
-                fs.readFile(path.join(chaincodePath, 'package.json'), 'utf8').then((content) => {
-                    const updatedContent = content.replace(/(YOUR_CHAINCODE_NAME)/i, argv.chaincode).replace(/(YOUR_CHAINCODE_DESCRIPTION)/i, argv.description || 'This chaincode will ...');
-
-                    return fs.writeFile(path.join(chaincodePath, 'package.json'), updatedContent, {
-                        encoding: 'utf8'
-                    });
+                replaceInFile(path.join(chaincodePath, 'chaincode.js'), {
+                    'YOUR_CHAINCODE_NAME_PASCAL_CASED': _.upperFirst(_.camelCase(argv.chaincode))
                 }),
-                fs.readFile(path.join(chaincodePath, 'README.md'), 'utf8').then((content) => {
-                    const updatedContent = content.replace(/(YOUR_CHAINCODE_NAME)/i, argv.chaincode);
-
-                    return fs.writeFile(path.join(chaincodePath, 'README.md'), updatedContent, {
-                        encoding: 'utf8'
-                    });
+                replaceInFile(path.join(chaincodePath, 'package.json'), {
+                    'YOUR_CHAINCODE_NAME': argv.chaincode,
+                    'YOUR_CHAINCODE_DESCRIPTION': argv.description || 'This chaincode will ...'
                 }),
-                fs.readFile(path.join(__dirname, '../templates/createChaincode/test.js'), 'utf8').then((content) => {
-                    const updatedContent = content.replace(/(YOUR_CHAINCODE_NAME)/i, argv.chaincode);
-
-                    return fs.writeFile(path.join(path.dirname(configPath), configContents[CONSTANTS.CONFIG_TEST_PATH_KEY], `${argv.chaincode}.test.js`), updatedContent, {
-                        encoding: 'utf8'
-                    });
-                })
+                replaceInFile(path.join(chaincodePath, 'README.md'), {
+                    'YOUR_CHAINCODE_NAME': argv.chaincode,
+                    'YOUR_CHAINCODE_DESCRIPTION': argv.description
+                }),
+                replaceInFile(
+                    path.join(__dirname, '../templates/createChaincode/test.js'),
+                    {
+                        'YOUR_CHAINCODE_NAME': argv.chaincode,
+                        'YOUR_CHAINCODE_DESCRIPTION': argv.description
+                    },
+                    path.join(path.dirname(configPath), configContents[CONSTANTS.CONFIG_TEST_PATH_KEY], `${argv.chaincode}.test.js`)
+                )
             ]);
         }).then(() => {
 
             return fs.readFile(configPath, 'utf8').then((contents) => {
                 const packageContents = JSON.parse(contents);
-                packageContents[CONSTANTS.CONFIG_KEY][CONSTANTS.CONFIG_CHAINCODES_KEY] = packageContents[CONSTANTS.CONFIG_KEY][CONSTANTS.CONFIG_CHAINODES_KEY] || [];
+                packageContents[CONSTANTS.CONFIG_KEY][CONSTANTS.CONFIG_CHAINCODES_KEY] = packageContents[CONSTANTS.CONFIG_KEY][CONSTANTS.CONFIG_CHAINCODES_KEY] || [];
                 packageContents[CONSTANTS.CONFIG_KEY][CONSTANTS.CONFIG_CHAINCODES_KEY].push(argv.chaincode);
 
                 return fs.writeFile(configPath, JSON.stringify(packageContents, null, 4), {
@@ -70,3 +69,21 @@ module.exports.handler = function(argv) {
         process.exit(1);
     });
 };
+
+function replaceInFile(sourcePath, replacements = {}, destinationPath) {
+
+
+    return fs.readFile(sourcePath, 'utf8').then((content) => {
+
+        let updatedContent = content;
+        Object.getOwnPropertyNames(replacements).forEach((searchString) => {
+            const replacementString = replacements[searchString];
+
+            updatedContent = updatedContent.replace(new RegExp(`(${searchString})`, 'gi'), replacementString);
+        });
+
+        return fs.writeFile(destinationPath || sourcePath, updatedContent, {
+            encoding: 'utf8'
+        });
+    });
+}

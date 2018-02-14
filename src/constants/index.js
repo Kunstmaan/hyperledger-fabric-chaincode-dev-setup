@@ -11,8 +11,12 @@ module.exports = {
     CONFIG_DOCKER_FILE_KEY: 'dockerFile',
     CONFIG_CHAINCODE_DESTINATION_KEY: 'chaincodeDestination',
     CONFIG_DEV_DEPENDENCIES: [
+        '@kunstmaan/hyperledger-fabric-chaincode-dev-setup',
         'jest',
-        '@kunstmaan/hyperledger-fabric-chaincode-dev-setup'
+        'eslint',
+        'eslint-config-airbnb-base',
+        'eslint-plugin-import',
+        'eslint-plugin-jest'
     ],
     CONFIG_SCRIPTS: {
         'clean': 'rm -rf ./build && kuma-hf-chaincode-dev cleanup-chaincode',

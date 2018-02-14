@@ -44,39 +44,43 @@ function createStructure(cwdPath) {
             fs.ensureDir(sourcePath).then(() => {
 
                 return Promise.all([
+                    fs.copy(path.resolve(__dirname, '../templates/init/configuration'), path.resolve(cwdPath)),
                     fs.ensureDir(path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME)),
                     fs.ensureDir(commonPath).then(() => {
+                        const commonPackage = fileExistsWithMode(
+                            path.resolve(commonPath, 'package.json'),
+                            fs.constants.R_OK
+                        ).then((existsAndReadable) => {
+                            if (!existsAndReadable) {
 
-                        return Promise.all[
-                            fileExistsWithMode(
-                                path.resolve(commonPath, 'package.json'),
-                                fs.constants.R_OK
-                            ).then((existsAndReadable) => {
-                                if (!existsAndReadable) {
+                                return fs.copy(
+                                    path.resolve(__dirname, '../templates/init/commonPackage.json'),
+                                    path.resolve(commonPath, 'package.json')
+                                );
+                            }
 
-                                    return fs.copy(
-                                        path.resolve(__dirname, '../templates/init/commonPackage.json'),
-                                        path.resolve(commonPath, 'package.json')
-                                    );
-                                }
+                            return Promise.resolve();
+                        });
 
-                                return Promise.resolve();
-                            }),
-                            fileExistsWithMode(
-                                path.resolve(commonPath, 'constants'),
-                                fs.constants.R_OK
-                            ).then((existsAndReadable) => {
-                                if (!existsAndReadable) {
+                        const commonConstants = fileExistsWithMode(
+                            path.resolve(commonPath, 'constants'),
+                            fs.constants.R_OK
+                        ).then((existsAndReadable) => {
+                            if (!existsAndReadable) {
 
-                                    return fs.copy(
-                                        path.resolve(__dirname, '../templates/init/constants'),
-                                        path.resolve(commonPath, 'constants')
-                                    );
-                                }
+                                return fs.copy(
+                                    path.resolve(__dirname, '../templates/init/constants'),
+                                    path.resolve(commonPath, 'constants')
+                                );
+                            }
 
-                                return Promise.resolve();
-                            })
-                        ];
+                            return Promise.resolve();
+                        });
+
+                        return Promise.all([
+                            commonPackage,
+                            commonConstants
+                        ]);
                     })
                 ]);
             })
@@ -160,6 +164,7 @@ function addConfiguration() {
 
 function readOrCreatePackageFile(cwdPath) {
     const packagePath = path.resolve(cwdPath, 'package.json');
+    let wasCreated = false;
 
     return fileExistsWithMode(packagePath, fs.constants.W_OK)
         .then((existsAndWritable) => {
@@ -193,6 +198,7 @@ function readOrCreatePackageFile(cwdPath) {
                         if (code !== 0) {
                             reject(new Error(`Exitted with code ${code}`));
                         } else {
+                            wasCreated = true;
                             fulfill();
                         }
                         stdinStream.end();
@@ -204,8 +210,14 @@ function readOrCreatePackageFile(cwdPath) {
         }).then(() => {
 
             return fs.readFile(packagePath, 'utf8').then((contents) => {
+                const parsedContents = JSON.parse(contents);
 
-                return JSON.parse(contents);
+                if (wasCreated) {
+                    // make place for the jest test script
+                    parsedContents.scripts.test = undefined;
+                }
+
+                return parsedContents;
             });
         });
 }

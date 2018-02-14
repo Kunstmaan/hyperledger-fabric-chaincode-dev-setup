@@ -4,7 +4,7 @@ const {ChaincodeBase, ChaincodeError} = require('@kunstmaan/hyperledger-fabric-n
 const ERRORS = require('./common/constants/errors');
 const CONSTANTS = require('./common/constants/index');
 
-let YOUR_CHAINCODE_NAME_PASCAL_CASEDChaincode = class extends ChaincodeBase {
+const YOUR_CHAINCODE_NAME_PASCAL_CASEDChaincode = class extends ChaincodeBase {
 
 };
 

@@ -5,15 +5,14 @@ set -e
 
 which docker
 
-if [ $? -eq 0 ]
-then
-    echo "Installing ${HF_VERSION}"
+if [ $? -eq 0 ]; then
+    echo "Installing Hyperledger Fabric ${HF_VERSION} and CouchDB ${CDB_VERSION}"
 
     docker pull hyperledger/fabric-orderer:x86_64-${HF_VERSION}
     docker tag hyperledger/fabric-orderer:x86_64-${HF_VERSION} hyperledger/fabric-orderer:latest
 
-    docker pull hyperledger/fabric-couchdb:x86_64-${HF_VERSION}
-    docker tag hyperledger/fabric-couchdb:x86_64-${HF_VERSION} hyperledger/fabric-couchdb:latest
+    docker pull hyperledger/fabric-couchdb:x86_64-${CDB_VERSION}
+    docker tag hyperledger/fabric-couchdb:x86_64-${CDB_VERSION} hyperledger/fabric-couchdb:latest
 
     docker pull hyperledger/fabric-peer:x86_64-${HF_VERSION}
     docker tag hyperledger/fabric-peer:x86_64-${HF_VERSION} hyperledger/fabric-peer:latest

@@ -29,7 +29,7 @@ module.exports = function setupDevEnv({
     dockerFile = DEFAULT_DOCKER_FILE,
     chaincodeDestination = DEFAULT_CHAINCODE_DESTINATION_PATH,
     copyGlobPattern = undefined
-}) {
+} = {}) {
     setLogOutputToConsole(logOutputToConsole);
 
     chaincodeLocations.forEach((location) => {

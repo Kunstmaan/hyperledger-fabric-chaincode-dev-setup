@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 */
-
+/* eslint-disable */
 'use strict';
 const shim = require('fabric-shim');
 const util = require('util');
@@ -58,7 +58,7 @@ let Chaincode = class {
   async initLedger(stub, args) {
     console.info('============= START : Initialize Ledger ===========');
     let cars = [];
-    
+
     cars.push({
       make: 'Holden',
       model: 'Barina',
@@ -87,6 +87,7 @@ let Chaincode = class {
     };
 
     await stub.putState(args[0], Buffer.from(JSON.stringify(car)));
+    setEvent(stub, 'CAR_CREATED', car);
     console.info('============= END : Create Car ===========');
   }
 
@@ -136,4 +137,18 @@ let Chaincode = class {
     await stub.putState(args[0], Buffer.from(JSON.stringify(car)));
   }
 };
+
+function setEvent(stub, name, payload) {
+    let bufferedPayload;
+
+    if (Buffer.isBuffer(payload)) {
+        bufferedPayload = payload;
+    } else {
+        bufferedPayload = Buffer.from(JSON.stringify(payload));
+    }
+
+    console.log(`Event ${name} created for ${JSON.stringify(payload)}`);
+    return stub.setEvent(name, bufferedPayload);
+}
+
 shim.start(new Chaincode());

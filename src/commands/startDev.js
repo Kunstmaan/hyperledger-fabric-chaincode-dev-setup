@@ -31,7 +31,7 @@ module.exports.handler = function(argv) {
         // run simple network
         return setupDevEnv({
             'chaincodeLocations': argv.chaincodePath.map((cp) => {
-                
+
                 return path.resolve(cp);
             }),
             'watchMode': argv.watch
@@ -96,9 +96,9 @@ module.exports.handler = function(argv) {
             });
 
             chokidar.watch([
-                path.join(__dirname, 'src/common/**/*.js'),
-                path.join(__dirname, 'src/common/package.json'),
-                `!${path.join(__dirname, 'src/common/node_modules/**')}`
+                path.join(sourcePath, 'common/**/*.js'),
+                path.join(sourcePath, 'common/package.json'),
+                `!${path.join(sourcePath, 'common/node_modules/**')}`
             ], {
                 ignoreInitial: true
             }).on('all', () => {

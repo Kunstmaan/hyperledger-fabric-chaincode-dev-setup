@@ -20,7 +20,7 @@ module.exports = {
     ],
     CONFIG_SCRIPTS: {
         'clean': 'rm -rf ./build && kuma-hf-chaincode-dev cleanup-chaincode',
-        'start': 'kuma-hf-chaincode-dev start-dev',
+        'start': 'kuma-hf-chaincode-dev start-dev --watch',
         'build': 'kuma-hf-chaincode-dev build',
         'test': 'jest test/'
     },

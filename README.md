@@ -1,4 +1,4 @@
-# Hyperledger Fabric dev setup for chaincode development
+# Hyperledger Fabric dev setup for chaincode development [![npm version](https://badge.fury.io/js/%40kunstmaan%2Fhyperledger-fabric-chaincode-dev-setup.svg)](https://badge.fury.io/js/%40kunstmaan%2Fhyperledger-fabric-chaincode-dev-setup)
 
 This repo contains out of a setup which makes it easy to develop node.js chaincode.
 

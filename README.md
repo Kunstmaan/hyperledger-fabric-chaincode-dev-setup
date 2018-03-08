@@ -19,6 +19,7 @@ With the following command you can get an overview of all the commands available
 ```
 kuma-hf-chaincode-dev -h
 ```
+**Dependency: this tool required Node version >= 8**
 
 ### Start dev network environment
 

@@ -25,6 +25,7 @@ module.exports.handler = function(argv) {
         .then(createStructure(cwdPath))
         .then(() => {
             console.log('Done initializing!');
+            console.log('!! Don\'t forget to run "npm install"');
         })
         .catch((err) => {
             console.error(err);

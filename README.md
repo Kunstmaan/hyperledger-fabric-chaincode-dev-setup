@@ -4,7 +4,7 @@ This repo contains out of a setup which makes it easy to develop node.js chainco
 
 **Only node.js chaincode is supported, go is not implemented yet. Feel free to help out and create a pull request.**
 
-For more info on developing chaincode please have a look at the [online tutorial](http://hyperledger-fabric.readthedocs.io/en/v1.1.0-preview/chaincode4ade.html).
+For more info on developing chaincode please have a look at the [online tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.1/chaincode4ade.html).
 
 ## CLI API
 

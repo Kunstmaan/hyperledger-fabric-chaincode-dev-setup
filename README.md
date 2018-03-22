@@ -23,7 +23,7 @@ kuma-hf-chaincode-dev -h
 
 ### Start dev network environment
 
-Make sure you have at least version 1.1.0-preview of the docker images installed. For this you can use the following command:
+Make sure you have at least version 1.1.0 of the docker images installed. For this you can use the following command:
 
 ``` 
 kuma-hf-chaincode-dev setup-docker-images

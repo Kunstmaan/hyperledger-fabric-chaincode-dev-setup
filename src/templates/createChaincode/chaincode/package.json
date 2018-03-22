@@ -14,7 +14,7 @@
     "license": "MIT",
     "dependencies": {
         "@kunstmaan/hyperledger-fabric-node-chaincode-utils": "^0.1.0",
-        "fabric-shim": "git+https://github.com/daanporon/fabric-shim.git"
+        "fabric-shim": "^1.1.0"
     },
     "hf-language": "node",
     "hf-dev-channel": "defaultchannel",

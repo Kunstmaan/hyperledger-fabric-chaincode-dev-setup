@@ -3,7 +3,7 @@ const merge = require('merge');
 const {spawn} = require('child_process');
 
 module.exports.command = 'setup-docker-images';
-module.exports.describe = 'Setup the (1.1.0-alpha) docker images for the default dev network';
+module.exports.describe = 'Setup the (1.1.0) docker images for the default dev network';
 
 // use separate version for couchdb because the version for couchDB isn't always in sync with the HF version.
 module.exports.builder = {
@@ -11,7 +11,7 @@ module.exports.builder = {
         'alias': 'hfv',
         'type': 'string',
         'describe': 'The version of Hyperledger Fabric to use',
-        'default': '1.1.0-alpha'
+        'default': '1.1.0'
     },
     'cdb-version': {
         'alias': 'cv',

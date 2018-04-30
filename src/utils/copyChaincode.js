@@ -28,7 +28,7 @@ module.exports = function copyChaincode(chaincodeLocation, chaincodeDestination,
         console.log('Copying files which match following pattern', globPattern);
 
         // options is optional
-        glob(globPattern, (globErr, files) => {
+        glob(globPattern, {nodir: true}, (globErr, files) => {
             if (globErr) {
                 console.log('Failed to copy chaincode files', globErr);
                 reject(globErr);

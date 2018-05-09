@@ -13,8 +13,8 @@
     "engineStrict": true,
     "license": "MIT",
     "dependencies": {
-        "@kunstmaan/hyperledger-fabric-node-chaincode-utils": "^0.1.0",
-        "fabric-shim": "^1.1.0"
+        "@kunstmaan/hyperledger-fabric-node-chaincode-utils": "^0.3.1",
+        "fabric-shim": "^1.1.2"
     },
     "hf-language": "node",
     "hf-dev-channel": "defaultchannel",

@@ -9,7 +9,6 @@
         "sourceType": "module",
         "modules": true,
         "ecmaFeatures": {
-            "jsx": true,
             "modules": true
         }
     },

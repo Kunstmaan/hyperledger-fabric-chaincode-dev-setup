@@ -16,4 +16,8 @@ argv = argv.usage('Usage: $0 <command> [options]');
     argv = argv.command(require(commandPath));
 });
 
+process.on('unhandledRejection', (reason, p) => {
+    console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});
+
 argv.help('h').alias('h', 'help').argv; // eslint-disable-line

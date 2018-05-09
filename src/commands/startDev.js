@@ -78,10 +78,7 @@ module.exports.handler = function(argv) {
                 filesToWatch.push(`!${path.join(chaincodePath, 'node_modules/**')}`);
             });
 
-            chokidar.watch(filesToWatch, {
-                ignoreInitial: true,
-                followSymlinks: false
-            }).on('all', (event, filePath) => {
+            const updateChaincodeFile = (filePath) => {
                 const updatedChaincode = chaincodes.find((c) => {
                     const chaincodePath = path.join(chaincodesBasePath, c);
 
@@ -91,9 +88,28 @@ module.exports.handler = function(argv) {
                 if (updatedChaincode) {
                     console.log(`Updating file ${filePath} for chaincode ${updatedChaincode}`);
 
-                    buildChaincode(updatedChaincode, sourcePath, buildPath, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath));
+                    buildChaincode(updatedChaincode, sourcePath, buildPath, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath))
+                        .catch((err) => {
+                            console.log(`Updating file failed: ${err.message}`)
+                        });
                 }
-            });
+            };
+
+            chokidar.watch(filesToWatch, {
+                ignoreInitial: true,
+                followSymlinks: false
+            })
+                .on('add', updateChaincodeFile)
+                .on('change', updateChaincodeFile);
+
+
+            const updateCommon = () => {
+                console.log('Updating common');
+
+                buildCommon(chaincodes, sourcePath, buildPath).catch((err) => {
+                    console.log(`Updating common failed: ${err.message}`)
+                });
+            };
 
             chokidar.watch([
                 path.join(sourcePath, 'common/**/*.js'),
@@ -101,11 +117,9 @@ module.exports.handler = function(argv) {
                 `!${path.join(sourcePath, 'common/node_modules/**')}`
             ], {
                 ignoreInitial: true
-            }).on('all', () => {
-                console.log('Updating common');
-
-                buildCommon(chaincodes, sourcePath, buildPath);
-            });
+            })
+                .on('add', updateCommon)
+                .on('change', updateCommon);
         });
     }).catch((err) => {
         console.error(err);

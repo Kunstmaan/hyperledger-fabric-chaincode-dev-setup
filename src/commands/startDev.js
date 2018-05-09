@@ -90,7 +90,7 @@ module.exports.handler = function(argv) {
 
                     buildChaincode(updatedChaincode, sourcePath, buildPath, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath))
                         .catch((err) => {
-                            console.log(`Updating file failed: ${err.message}`)
+                            console.log(`Updating file failed: ${err.message}`);
                         });
                 }
             };
@@ -107,7 +107,7 @@ module.exports.handler = function(argv) {
                 console.log('Updating common');
 
                 buildCommon(chaincodes, sourcePath, buildPath).catch((err) => {
-                    console.log(`Updating common failed: ${err.message}`)
+                    console.log(`Updating common failed: ${err.message}`);
                 });
             };
 

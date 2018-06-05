@@ -116,7 +116,7 @@ You can also install this as an npm module in your project and run it within a n
 ### Installing 
 
 ```
-npm install @kunstmaan/hyperledger-fabric-chaincode-dev --save
+npm install @kunstmaan/hyperledger-fabric-chaincode-dev-setup --save
 ```
 
 ```javascript

@@ -48,15 +48,15 @@ module.exports = function setupDevEnv({
     // Start docker
     console.log(`Setting up docker ${dockerFile} with chaincode destination ${chaincodeDestination}`);
 
-    return startShell(
-        path.join(SCRIPTS_PATH, 'setupDocker.sh'),
-        {
-            HF_DOCKER_FILE: dockerFile
-        },
-        DOCKER_SETUP_FINISHED_REGEX,
-        30000
-    )
-        .then(copyAllChaincode)
+    return fs.ensureDir(chaincodeDestination).then(() => {
+        return startShell(
+            path.join(SCRIPTS_PATH, 'setupDocker.sh'),
+            {
+                HF_DOCKER_FILE: dockerFile
+            },
+            DOCKER_SETUP_FINISHED_REGEX,
+            30000
+        ).then(copyAllChaincode)
         .then(installAllNpmPackages)
         .then(initAllChaincode)
         .then(() => {
@@ -66,4 +66,5 @@ module.exports = function setupDevEnv({
 
             return promptForUpgrade(chaincodeLocations, chaincodeDestination);
         });
+    });
 };

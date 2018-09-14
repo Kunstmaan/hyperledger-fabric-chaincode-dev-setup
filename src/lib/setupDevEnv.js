@@ -48,6 +48,8 @@ module.exports = function setupDevEnv({
     // Start docker
     console.log(`Setting up docker ${dockerFile} with chaincode destination ${chaincodeDestination}`);
 
+    // Create the chaincode folder so that docker does not set its permissions as root when creating the volume
+    fs.ensureDirSync(chaincodeDestination);
     return startShell(
         path.join(SCRIPTS_PATH, 'setupDocker.sh'),
         {

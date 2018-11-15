@@ -56,7 +56,8 @@ module.exports = function setupDevEnv({
             },
             DOCKER_SETUP_FINISHED_REGEX,
             30000
-        ).then(copyAllChaincode)
+        )
+            .then(copyAllChaincode)
             .then(installAllNpmPackages)
             .then(initAllChaincode)
             .then(() => {

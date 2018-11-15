@@ -10,6 +10,6 @@
     "license": "MIT",
     "dependencies": {
         "@kunstmaan/hyperledger-fabric-node-chaincode-utils": "^0.4.0",
-        "fabric-shim": "^1.1.2"
+        "fabric-shim": "^1.3.1"
     }
 }

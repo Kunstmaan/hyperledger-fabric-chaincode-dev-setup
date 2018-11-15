@@ -4,7 +4,7 @@ This repo contains out of a setup which makes it easy to develop node.js chainco
 
 **Only node.js chaincode is supported, go is not implemented yet. Feel free to help out and create a pull request.**
 
-For more info on developing chaincode please have a look at the [online tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.1/chaincode4ade.html).
+For more info on developing chaincode please have a look at the [online tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.3/chaincode4ade.html).
 
 ## CLI API
 
@@ -23,7 +23,7 @@ kuma-hf-chaincode-dev -h
 
 ### Start dev network environment
 
-Make sure you have at least version 1.1.0 of the docker images installed. For this you can use the following command:
+Make sure you have at least version 1.3.0 of the docker images installed. For this you can use the following command:
 
 ``` 
 kuma-hf-chaincode-dev setup-docker-images
@@ -162,7 +162,7 @@ When this option is enabled the script will watch your chaincode directory for a
 
 ## What is the script doing
 
-It automates the steps inside the [tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.1/chaincode4ade.html).
+It automates the steps inside the [tutorial](https://hyperledger-fabric.readthedocs.io/en/release-1.3/chaincode4ade.html).
 No need to setup many terminal windows. With this repo you'll only need to run a single script. It also watches for changes in the chaincode and automatically deploys them.
 
 Steps which are done behind the scenes:

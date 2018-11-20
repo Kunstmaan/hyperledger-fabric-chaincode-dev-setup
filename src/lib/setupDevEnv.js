@@ -57,14 +57,14 @@ module.exports = function setupDevEnv({
             DOCKER_SETUP_FINISHED_REGEX,
             30000
         ).then(copyAllChaincode)
-        .then(installAllNpmPackages)
-        .then(initAllChaincode)
-        .then(() => {
-            if (watchMode) {
-                return watchChaincode(chaincodeLocations, chaincodeDestination);
-            }
+            .then(installAllNpmPackages)
+            .then(initAllChaincode)
+            .then(() => {
+                if (watchMode) {
+                    return watchChaincode(chaincodeLocations, chaincodeDestination);
+                }
 
-            return promptForUpgrade(chaincodeLocations, chaincodeDestination);
-        });
+                return promptForUpgrade(chaincodeLocations, chaincodeDestination);
+            });
     });
 };

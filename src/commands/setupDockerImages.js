@@ -17,7 +17,7 @@ module.exports.builder = {
         'alias': 'cv',
         'type': 'string',
         'describe': 'The version of Hyperledger Fabric CouchDB to use',
-        'default': '1.1.0-preview'
+        'default': '0.4.14'
     }
 };
 

@@ -27,6 +27,7 @@ module.exports = {
     },
 
     DEFAULT_CHANNEL: 'defaultchannel',
+    DEFAULT_PEER_NAME: 'peer',
     DEFAULT_CHAINCODE_DESTINATION_PATH: path.resolve(__dirname, '../../dev-network/generated/devmode/chaincode'),
     DEFAULT_DOCKER_FILE: path.resolve(__dirname, '../../dev-network/generated/devmode/docker-compose-simple.yaml'),
     SCRIPTS_PATH: path.resolve(__dirname, '../scripts'),

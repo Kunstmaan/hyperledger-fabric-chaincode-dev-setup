@@ -4,14 +4,17 @@ const {SCRIPTS_PATH, DEPLOY_FINISHED_REGEX} = require('./../constants');
 const startShell = require('./startShell');
 const getChaincodeName = require('./getChaincodeName');
 const getChaincodeChannel = require('./getChaincodeChannel');
+const getPeerName = require('./getPeerName');
 
 module.exports = function initChaincode(chaincodeLocation) {
     const chaincodeName = getChaincodeName(chaincodeLocation);
     const chaincodeChannel = getChaincodeChannel(chaincodeLocation);
+    const peerName = getPeerName(chaincodeLocation);
 
     const shellEnvVariables = {
         'CHAINCODE_CHANNEL': chaincodeChannel,
         'CHAINCODE_NAME': chaincodeName,
+        'PEER_NAME': peerName,
         'VERSION': 0
     };
 

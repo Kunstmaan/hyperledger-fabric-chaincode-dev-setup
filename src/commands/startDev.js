@@ -91,7 +91,7 @@ module.exports.handler = function(argv) {
                 if (updatedChaincode) {
                     console.log(`Updating file ${filePath} for chaincode ${updatedChaincode}`);
 
-                    buildChaincode(updatedChaincode, sourcePath, buildPath, buildIgnorePatternsRegexes, filePath)
+                    buildChaincode(updatedChaincode, sourcePath, buildPath, buildIgnorePatternsRegexes, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath))
                         .catch((err) => {
                             console.log(`Updating file failed: ${err.message}`);
                         });

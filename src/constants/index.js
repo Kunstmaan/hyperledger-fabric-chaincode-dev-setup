@@ -7,6 +7,7 @@ module.exports = {
     CONFIG_CHAINCODES_KEY: 'chaincodes',
     CONFIG_SOURCE_PATH_KEY: 'sourcePath',
     CONFIG_BUILD_PATH_KEY: 'buildPath',
+    CONFIG_BUILD_IGNORE_PATTERNS_KEY: 'buildIgnorePatterns',
     CONFIG_TEST_PATH_KEY: 'testPath',
     CONFIG_DOCKER_FILE_KEY: 'dockerFile',
     CONFIG_CHAINCODE_DESTINATION_KEY: 'chaincodeDestination',

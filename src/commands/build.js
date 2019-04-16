@@ -12,10 +12,13 @@ module.exports.handler = function() {
 
     return locateConfig('./').then(({configPath, configContents}) => {
         const cwdPath = path.dirname(configPath);
+        const buildIgnorePatterns = configContents[CONSTANTS.CONFIG_BUILD_IGNORE_PATTERNS_KEY] || [];
+        const buildIgnorePatternsRegexes = buildIgnorePatterns.map((pattern) => new RegExp(pattern, 'i'));
 
         return build(
             path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_SOURCE_PATH_KEY]),
             path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_BUILD_PATH_KEY]),
+            buildIgnorePatternsRegexes,
             configContents[CONSTANTS.CONFIG_CHAINCODES_KEY]
         ).then(() => {
             console.log('Done building!');

@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const CONSTANTS = require('../constants');
 
-const buildCommon = function buildCommon(chaincodes, sourcePath, buildPath) {
+const buildCommon = function buildCommon(chaincodes, sourcePath, buildPath, buildIgnorePatterns) {
     const commonPath = path.join(sourcePath, 'common/package.json');
 
     if (!fs.existsSync(commonPath)) {
@@ -20,6 +20,7 @@ const buildCommon = function buildCommon(chaincodes, sourcePath, buildPath) {
             'filter': (src) => {
 
                 return [
+                    ...buildIgnorePatterns,
                     /^.+(\/node_modules).*$/i,
                     /^.+(\/package.json).*$/i,
                     /^.+(\/package-lock.json).*$/i
@@ -41,7 +42,7 @@ const buildCommon = function buildCommon(chaincodes, sourcePath, buildPath) {
     }));
 };
 
-const buildChaincode = function buildChaincode(chaincodeFolderName, sourcePath, buildPath, filePath) {
+const buildChaincode = function buildChaincode(chaincodeFolderName, sourcePath, buildPath, buildIgnorePatterns, filePath) {
     if (filePath != null) {
 
         return fs.copy(path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME, chaincodeFolderName, filePath), path.resolve(buildPath, chaincodeFolderName, filePath), {
@@ -54,6 +55,7 @@ const buildChaincode = function buildChaincode(chaincodeFolderName, sourcePath, 
         'filter': (src) => {
 
             return [
+                ...buildIgnorePatterns,
                 /^.+(\/common)$/i,
                 /^.+(\/node_modules).*$/i,
                 /^.+(\/playground.js).*$/i,
@@ -66,7 +68,7 @@ const buildChaincode = function buildChaincode(chaincodeFolderName, sourcePath, 
     });
 };
 
-const build = (sourcePath, buildPath, chaincodes) => {
+const build = (sourcePath, buildPath, buildIgnorePatterns, chaincodes) => {
 
     return fs.remove(buildPath)
         .then(() => {
@@ -76,10 +78,10 @@ const build = (sourcePath, buildPath, chaincodes) => {
 
             return Promise.all(chaincodes.map((chaincode) => {
 
-                return buildChaincode(chaincode, sourcePath, buildPath);
+                return buildChaincode(chaincode, sourcePath, buildPath, buildIgnorePatterns);
             })).then(() => {
 
-                return buildCommon(chaincodes, sourcePath, buildPath);
+                return buildCommon(chaincodes, sourcePath, buildPath, buildIgnorePatterns);
             });
         });
 };

@@ -50,11 +50,13 @@ module.exports.handler = function(argv) {
         const chaincodes = configContents[CONSTANTS.CONFIG_CHAINCODES_KEY];
         const chaincodesBasePath = path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME);
         const copyGlobPattern = configContents[CONSTANTS.CONFIG_COPY_GLOB_PATTERN_KEY] || CONSTANTS.DEFAULT_COPY_GLOB_PATTERN;
+        const buildIgnorePatterns = configContents[CONSTANTS.CONFIG_BUILD_IGNORE_PATTERNS_KEY] || [];
+        const buildIgnorePatternsRegexes = buildIgnorePatterns.map((pattern) => new RegExp(pattern, 'i'));
 
         const dockerFile = configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY]) : CONSTANTS.DEFAULT_DOCKER_FILE;
         const chaincodeDestination = configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY]) : CONSTANTS.DEFAULT_CHAINCODE_DESTINATION_PATH;
 
-        return build(sourcePath, buildPath, chaincodes).then(() => {
+        return build(sourcePath, buildPath, buildIgnorePatternsRegexes, chaincodes).then(() => {
             const buildedChaincodeLocations = chaincodes.map((chaincode) => {
 
                 return path.resolve(buildPath, chaincode);
@@ -89,7 +91,7 @@ module.exports.handler = function(argv) {
                 if (updatedChaincode) {
                     console.log(`Updating file ${filePath} for chaincode ${updatedChaincode}`);
 
-                    buildChaincode(updatedChaincode, sourcePath, buildPath, path.relative(path.join(chaincodesBasePath, updatedChaincode), filePath))
+                    buildChaincode(updatedChaincode, sourcePath, buildPath, buildIgnorePatternsRegexes, filePath)
                         .catch((err) => {
                             console.log(`Updating file failed: ${err.message}`);
                         });
@@ -107,7 +109,7 @@ module.exports.handler = function(argv) {
             const updateCommon = () => {
                 console.log('Updating common');
 
-                buildCommon(chaincodes, sourcePath, buildPath).catch((err) => {
+                buildCommon(chaincodes, sourcePath, buildPath, buildIgnorePatternsRegexes).catch((err) => {
                     console.log(`Updating common failed: ${err.message}`);
                 });
             };

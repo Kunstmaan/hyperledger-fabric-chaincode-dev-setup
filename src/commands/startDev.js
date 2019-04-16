@@ -49,6 +49,7 @@ module.exports.handler = function(argv) {
         const buildPath = path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_BUILD_PATH_KEY]);
         const chaincodes = configContents[CONSTANTS.CONFIG_CHAINCODES_KEY];
         const chaincodesBasePath = path.resolve(sourcePath, CONSTANTS.CHAINCODES_DIR_NAME);
+        const copyGlobPattern = configContents[CONSTANTS.CONFIG_COPY_GLOB_PATTERN_KEY] || CONSTANTS.DEFAULT_COPY_GLOB_PATTERN;
 
         const dockerFile = configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_DOCKER_FILE_KEY]) : CONSTANTS.DEFAULT_DOCKER_FILE;
         const chaincodeDestination = configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY] ? path.resolve(cwdPath, configContents[CONSTANTS.CONFIG_CHAINCODE_DESTINATION_KEY]) : CONSTANTS.DEFAULT_CHAINCODE_DESTINATION_PATH;
@@ -63,7 +64,7 @@ module.exports.handler = function(argv) {
                 'chaincodeLocations': buildedChaincodeLocations,
                 'dockerFile': dockerFile,
                 'chaincodeDestination': chaincodeDestination,
-                'copyGlobPattern': '**/!(package-lock.json)',
+                'copyGlobPattern': copyGlobPattern,
                 'watchMode': argv.watch
             });
         }).then(() => {

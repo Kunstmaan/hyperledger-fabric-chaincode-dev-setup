@@ -5,7 +5,13 @@ const _ = require('lodash');
 const CONSTANTS = require('../constants');
 
 const buildCommon = function buildCommon(chaincodes, sourcePath, buildPath) {
-    const commonDependencies = require(path.join(sourcePath, 'common/package.json')).dependencies || {};
+    const commonPath = path.join(sourcePath, 'common/package.json');
+
+    if (!fs.existsSync(commonPath)) {
+        return Promise.resolve();
+    }
+
+    const commonDependencies = require(commonPath).dependencies || {};
 
     return Promise.all(chaincodes.map((chaincode) => {
 

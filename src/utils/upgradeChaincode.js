@@ -4,14 +4,20 @@ const {SCRIPTS_PATH, DEPLOY_FINISHED_REGEX} = require('./../constants');
 const startShell = require('./startShell');
 const getChaincodeName = require('./getChaincodeName');
 const getChaincodeChannel = require('./getChaincodeChannel');
+const getInstantiateArgsString = require('./getInstantiateArgsString');
+const hasCollectionsConfig = require('./hasCollectionsConfig');
 
 module.exports = function upgradeChaincode(chaincodeLocation, version) {
     const chaincodeName = getChaincodeName(chaincodeLocation);
     const chaincodeChannel = getChaincodeChannel(chaincodeLocation);
+    const instantiateArgsString = getInstantiateArgsString(chaincodeLocation);
+    const collectionsConfigFound = hasCollectionsConfig(chaincodeLocation);
 
     const shellEnvVariables = {
         'CHAINCODE_CHANNEL': chaincodeChannel,
         'CHAINCODE_NAME': chaincodeName,
+        'INSTANTIATE_ARGS': instantiateArgsString,
+        'HAS_COLLECTIONS_CONFIG': collectionsConfigFound,
         'VERSION': version
     };
 

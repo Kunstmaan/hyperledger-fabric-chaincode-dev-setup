@@ -5,16 +5,22 @@ const startShell = require('./startShell');
 const getChaincodeName = require('./getChaincodeName');
 const getChaincodeChannel = require('./getChaincodeChannel');
 const getPeerName = require('./getPeerName');
+const getInstantiateArgsString = require('./getInstantiateArgsString');
+const hasCollectionsConfig = require('./hasCollectionsConfig');
 
 module.exports = function initChaincode(chaincodeLocation) {
     const chaincodeName = getChaincodeName(chaincodeLocation);
     const chaincodeChannel = getChaincodeChannel(chaincodeLocation);
     const peerName = getPeerName(chaincodeLocation);
+    const instantiateArgsString = getInstantiateArgsString(chaincodeLocation);
+    const collectionsConfigFound = hasCollectionsConfig(chaincodeLocation);
 
     const shellEnvVariables = {
         'CHAINCODE_CHANNEL': chaincodeChannel,
         'CHAINCODE_NAME': chaincodeName,
         'PEER_NAME': peerName,
+        'INSTANTIATE_ARGS': instantiateArgsString,
+        'HAS_COLLECTIONS_CONFIG': collectionsConfigFound,
         'VERSION': 0
     };
 
